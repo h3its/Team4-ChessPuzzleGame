@@ -18,7 +18,7 @@ python -m venv      --> This will create a virtual enviornment to install your d
 ### Activate the Virtual Enviornment IMPORTANT
 You must make sure the virtual enviornment is running before installing your dependencies!
 
-mac: source venv/bin/activate
+mac/linux: source venv/bin/activate
 
 windows: venv\Scripts\activate
 
@@ -26,7 +26,7 @@ Then run:
 pip install -r requirements.txt
 
 Now:
-git remote add origin https://github.com/h3its/Team4-ChessPuzzleGame.git     --> This will add the github repo as your remote repository
+git remote add origin https://github.com/h3its/Team4-ChessPuzzleGame.git     --> This will add the github repo as your remote repository (just to make sure)
 
 git push --set-upstream origin <YOUR_BRANCH_NAME>   --> This will push your changes to YOUR INDIVIDUAL BRANCH on github, we will merge these changes individually into the main code base.
 
