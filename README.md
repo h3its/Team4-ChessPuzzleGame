@@ -9,13 +9,13 @@ git clone -b <BRANCH_NAME> https://github.com/h3its/Team4-ChessPuzzleGame.git   
 
 git init --> after your code is copied you must create a local git repo on your system to start commiting changes
 
-##THE VIRTUAL ENVIORNMENT
+## THE VIRTUAL ENVIORNMENT
 
 if your virtual enviornment is not setup run the following:
 
 python -m venv      --> This will create a virtual enviornment to install your dependencies
 
-###Activate the Virtual Enviornment IMPORTANT
+### Activate the Virtual Enviornment IMPORTANT
 You must make sure the virtual enviornment is running before installing your dependencies!
 
 mac: source venv/bin/activate
