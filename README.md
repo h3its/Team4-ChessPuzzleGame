@@ -5,6 +5,8 @@ Chess puzzle game
 
 HOW TO UPDATE:
 
+CHANGE!!!!!
+
 git clone -b <BRANCH_NAME> https://github.com/h3its/Team4-ChessPuzzleGame.git      --> This will pull the current code from the branch you are aiming at
 
 git init --> after your code is copied you must create a local git repo on your system to start commiting changes
