@@ -19,3 +19,6 @@ SQUARE_SIZE = HEIGHT // ROWS
 GREEN = (119, 149, 86)
 WHITE = (235, 236, 208)
 BROWN = (100, 46, 28)
+
+# queen image
+QUEEN = pygame.transform.scale(pygame.image.load('assets/queen.png'), (100,100))
