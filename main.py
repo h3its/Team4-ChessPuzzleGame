@@ -1,14 +1,14 @@
 """
-Controls when the board is displayed and handles user input
+Runs the game and handles user input
 """
 
 import pygame
-from constants import WIDTH, HEIGHT
-from board import Board
+from constants import *
+from game import Game
 
 FPS = 60
 
-WIN = pygame.display.set_mode((WIDTH, HEIGHT+100))
+WIN = pygame.display.set_mode((WIDTH, HEIGHT+200))
 pygame.display.set_caption('Chess Puzzle Game')
 
 """
@@ -19,7 +19,7 @@ def main():
     # normalize game run speed on all hardware
     clock = pygame.time.Clock()
 
-    board = Board()
+    game = Game(WIN)
 
     while run:
         clock.tick(FPS)
@@ -29,10 +29,40 @@ def main():
                 run = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(pos)
+                game.pickup(row, col)
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(pos)
+                game.drop(row, col)
+
+            if event.type != pygame.KEYDOWN:
+                continue
+
+            if event.key == pygame.K_SPACE:
+                # b = Board(4)
+                # x = EightQueens(b)
+                # backTracking = True
                 pass
 
-        board.draw_squares(WIN)
-        board.draw_shelf(WIN)
-        pygame.display.update()
+            if event.key == pygame.K_r:
+                game.reset()
+
+            if event.key == pygame.K_n:
+                pass
+
+        game.update()
+
+"""
+gets the row and col from mouse position
+"""
+def get_row_col_from_mouse(pos):
+    x, y = pos
+    row = y // SQUARE_SIZE
+    col = x // SQUARE_SIZE
+    return row, col
+
 
 main()
