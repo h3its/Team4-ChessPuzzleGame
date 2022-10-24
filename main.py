@@ -150,6 +150,7 @@ while isRunning:
         if event.type == pygame.MOUSEBUTTONUP:
             for mouse in piece_group:
                 mouse.clicked = False               # User is no longer draggin piece
+
                 bop_sound = pygame.mixer.Sound("jump_sound.wav")
                 bop_sound.play()
 
