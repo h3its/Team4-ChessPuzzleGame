@@ -8,7 +8,7 @@ from game import Game
 
 FPS = 60
 
-WIN = pygame.display.set_mode((WIDTH, HEIGHT+200))
+WIN = pygame.display.set_mode((WIDTH, HEIGHT + SQUARE_SIZE + START_MENU_HEIGHT))
 pygame.display.set_caption('Chess Puzzle Game')
 
 """
@@ -30,22 +30,23 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(pos)
-                game.pickup(row, col)
+                x, y = pos
+                if y <= HEIGHT + SHELF_SIZE:
+                    row, col = get_row_col_from_mouse(pos)
+                    game.pickup(row, col)
 
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
-                row, col = get_row_col_from_mouse(pos)
-                game.drop(row, col)
+                x, y = pos
+                if y <= HEIGHT + SHELF_SIZE:
+                    row, col = get_row_col_from_mouse(pos)
+                    game.drop(row, col)
 
             if event.type != pygame.KEYDOWN:
                 continue
 
             if event.key == pygame.K_SPACE:
-                # b = Board(4)
-                # x = EightQueens(b)
-                # backTracking = True
-                pass
+                game.check_solution()
 
             if event.key == pygame.K_r:
                 game.reset()

@@ -58,3 +58,14 @@ class Game:
             return False
 
         return True
+
+    """
+    Checks to see if pieces are correctly placed
+    """
+    def check_solution(self):
+        result = False
+        if self.board.is_shelf_empty():
+            result = self.board.check()
+        if result:
+            self.board.is_correct()
+

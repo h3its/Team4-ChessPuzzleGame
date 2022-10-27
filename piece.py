@@ -1,10 +1,9 @@
 """
 Represents a chess piece on the board
-
-RIGHT NOW is hardcoded as a Queen
 """
 
 import pygame
+from abc import abstractmethod
 from constants import SQUARE_SIZE, ROWS, QUEEN
 
 class Piece:
@@ -26,11 +25,10 @@ class Piece:
     """
     draws the piece
     """
-    def draw(self, win):
-        #pygame.draw.circle(win, (255, 255, 255), (self.x, self.y), SQUARE_SIZE//2-10)
-        win.blit(QUEEN, (self.x, self.y))
+    def _draw(self, win, image):
+        win.blit(image, (self.x, self.y))
 
-    def drawwhilemoving(self, win):
+    def draw_while_moving(self, win):
         pos = pygame.mouse.get_pos()
         x, y = pos
         win.blit(QUEEN, (x - SQUARE_SIZE // 2, y - SQUARE_SIZE // 2))
@@ -44,8 +42,10 @@ class Piece:
         self.calc_pos()
 
     """
-    makes the piece print "Q" in any string representation
+    makes the piece print "X" in any string representation
     """
     def __repr__(self):
-        return "Q"
+        return "X"
 
+    @abstractmethod
+    def check_attacks(self): pass
