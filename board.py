@@ -16,6 +16,7 @@ class Board:
         self.board = []
         self.selected_piece = None
         self.correct = False
+        self.wrong = False
         self.setup_board()
 
     """
@@ -100,6 +101,8 @@ class Board:
                     piece.draw_while_moving(win)
         if self.correct:
             self.draw_correct(win)
+        elif self.wrong:
+            self.draw_wrong(win)
 
     """
     returns piece in specified row and col
@@ -150,6 +153,28 @@ class Board:
         pygame.font.init()
         font = pygame.font.SysFont('comicsansbold', SQUARE_SIZE)
         text = font.render('CORRECT!', True, GGREEN, BLACK)
+        text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        win.blit(text, text_rect)
+
+    """
+    Sets wrong to True
+    """
+    def is_wrong(self):
+        self.wrong = True
+
+    """
+    Sets wrong to False
+    """
+    def is_not_wrong(self):
+        self.wrong = False
+
+    """
+    Draw "TRY AGAIN!" on screen
+    """
+    def draw_wrong(self, win):
+        pygame.font.init()
+        font = pygame.font.SysFont('comicsansbold', SQUARE_SIZE)
+        text = font.render('TRY AGAIN!', True, RED, BLACK)
         text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         win.blit(text, text_rect)
 

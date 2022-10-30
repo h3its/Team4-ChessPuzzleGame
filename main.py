@@ -28,19 +28,20 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                x, y = pos
-                if y <= HEIGHT + SHELF_SIZE:
-                    row, col = get_row_col_from_mouse(pos)
-                    game.pickup(row, col)
+            if game.movable():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    x, y = pos
+                    if y <= HEIGHT + SHELF_SIZE:
+                        row, col = get_row_col_from_mouse(pos)
+                        game.pickup(row, col)
 
-            if event.type == pygame.MOUSEBUTTONUP:
-                pos = pygame.mouse.get_pos()
-                x, y = pos
-                if y <= HEIGHT + SHELF_SIZE:
-                    row, col = get_row_col_from_mouse(pos)
-                    game.drop(row, col)
+                if event.type == pygame.MOUSEBUTTONUP:
+                    pos = pygame.mouse.get_pos()
+                    x, y = pos
+                    if y <= HEIGHT + SHELF_SIZE:
+                        row, col = get_row_col_from_mouse(pos)
+                        game.drop(row, col)
 
             if event.type != pygame.KEYDOWN:
                 continue

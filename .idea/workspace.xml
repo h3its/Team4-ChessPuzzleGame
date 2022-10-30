@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5374c2e9-3a62-4b06-8a58-893a93da6ec8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/queen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_19_2022_2_35_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_19_2022_2_35_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_19_2022_2_51_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_19_2022_2_51_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/piece.py" beforeDir="false" afterPath="$PROJECT_DIR$/piece.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +109,8 @@
       <workItem from="1666662342664" duration="514000" />
       <workItem from="1666827063766" duration="114000" />
       <workItem from="1666827347081" duration="1028000" />
-      <workItem from="1666877453191" duration="8253000" />
+      <workItem from="1666877453191" duration="8832000" />
+      <workItem from="1667171975690" duration="1565000" />
     </task>
     <servers />
   </component>
@@ -191,7 +186,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Team4_ChessPuzzleGame$main.coverage" NAME="main Coverage Results" MODIFIED="1666885729312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Team4_ChessPuzzleGame$main.coverage" NAME="main Coverage Results" MODIFIED="1667173557210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Team4_ChessPuzzleGame$main2.coverage" NAME="main2 Coverage Results" MODIFIED="1666498116795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Team4_ChessPuzzleGame$board.coverage" NAME="board Coverage Results" MODIFIED="1665971268017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Team4_ChessPuzzleGame$piece.coverage" NAME="piece Coverage Results" MODIFIED="1665970926439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

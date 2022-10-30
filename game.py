@@ -36,6 +36,8 @@ class Game:
     selects a piece to be moved
     """
     def pickup(self, row, col):
+        if self.board.wrong:
+            self.board.is_not_wrong()
         if self.board.get_piece(row, col) != 0:
             self.selected = self.board.get_piece(row, col)
 
@@ -68,4 +70,14 @@ class Game:
             result = self.board.check()
         if result:
             self.board.is_correct()
+        else:
+            self.board.is_wrong()
+
+    """
+    Returns True if pieces can be moved, False if not
+    Pieces can be moved until level is completed. Once the solution is checked and "Correct!" is
+    displayed, pieces are not movable.
+    """
+    def movable(self):
+        return not self.board.correct
 
