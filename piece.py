@@ -1,57 +1,51 @@
+"""
+Represents a chess piece on the board
+"""
+
 import pygame
-##################################################################################
-###CHESS PIECE CLASS###
-###################################################################################
+from abc import abstractmethod
+from constants import SQUARE_SIZE, ROWS, QUEEN
 
+class Piece:
+    def __init__(self, number):
+        self.number = number
+        self.col = number
+        self.row = ROWS
+        self.x = 0
+        self.y = 0
+        self.calc_pos()
 
-class Piece(pygame.sprite.Sprite):
-    def __init__(self, x, y, tile_int, piece_group, spec_group):
-        super().__init__()
-        if tile_int == 4:
-            self.image = pygame.image.load("bishop.png")
-            spec_group.add(self)
-        elif tile_int == 5:
-            self.image = pygame.image.load("pawn.png")
-            spec_group.add(self)
-        elif tile_int == 6:
-            self.image = pygame.image.load("rook.png")
-            spec_group.add(self)
-        elif tile_int == 7:
-            self.image = pygame.image.load("queen.png")
-            spec_group.add(self)
-        elif tile_int == 8:
-            self.image = pygame.image.load("king.png")
-            spec_group.add(self)
-        elif tile_int == 9:
-            self.image = pygame.image.load("knight.png")
-            spec_group.add(self)
-        elif tile_int == 11:
-            self.image = pygame.image.load("opawn.png")
-            spec_group.add(self)
-        elif tile_int == 12:
-            self.image = pygame.image.load("orook.png")
-            spec_group.add(self)
-        elif tile_int == 13:
-            self.image = pygame.image.load("oknight.png")
-            spec_group.add(self)
-        elif tile_int == 14:
-            self.image = pygame.image.load("obishop.png")
-            spec_group.add(self)
-        elif tile_int == 15:
-            self.image = pygame.image.load("oking.png")
-            spec_group.add(self)
-        elif tile_int == 16:
-            self.image = pygame.image.load("oqueen.png")
-            spec_group.add(self)
+    """
+    calculates the top-left position of current square
+    """
+    def calc_pos(self):
+        self.x = SQUARE_SIZE * self.col #+ SQUARE_SIZE // 2
+        self.y = SQUARE_SIZE * self.row #+ SQUARE_SIZE // 2
 
-        piece_group.add(self)
+    """
+    draws the piece
+    """
+    def _draw(self, win, image):
+        win.blit(image, (self.x, self.y))
 
-        # Get rect of each image and position them
-        self.rect = self.image.get_rect()
-        self.rect.y = y
-        self.rect.x = x
-        self.clicked = False                # Checks if user clicked on sprite
-        self.rect.topleft = (x+16, y+16)
+    def draw_while_moving(self, win):
+        pos = pygame.mouse.get_pos()
+        x, y = pos
+        win.blit(QUEEN, (x - SQUARE_SIZE // 2, y - SQUARE_SIZE // 2))
 
-    def update(self):
-        pass
+    """
+    moves the piece to the specified row and col
+    """
+    def move(self, row, col):
+        self.row = row
+        self.col = col
+        self.calc_pos()
+
+    """
+    makes the piece print "X" in any string representation
+    """
+    def __repr__(self):
+        return "X"
+
+    @abstractmethod
+    def check_attacks(self): pass
