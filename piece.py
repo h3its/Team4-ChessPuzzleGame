@@ -6,6 +6,7 @@ import pygame
 from abc import abstractmethod
 from constants import SQUARE_SIZE, ROWS, QUEEN
 
+
 class Piece:
     def __init__(self, number):
         self.number = number
@@ -18,13 +19,15 @@ class Piece:
     """
     calculates the top-left position of current square
     """
+
     def calc_pos(self):
-        self.x = SQUARE_SIZE * self.col #+ SQUARE_SIZE // 2
-        self.y = SQUARE_SIZE * self.row #+ SQUARE_SIZE // 2
+        self.x = SQUARE_SIZE * self.col  # + SQUARE_SIZE // 2
+        self.y = SQUARE_SIZE * self.row  # + SQUARE_SIZE // 2
 
     """
     draws the piece
     """
+
     def _draw(self, win, image):
         win.blit(image, (self.x, self.y))
 
@@ -36,6 +39,7 @@ class Piece:
     """
     moves the piece to the specified row and col
     """
+
     def move(self, row, col):
         self.row = row
         self.col = col
@@ -44,6 +48,7 @@ class Piece:
     """
     makes the piece print "X" in any string representation
     """
+
     def __repr__(self):
         return "X"
 

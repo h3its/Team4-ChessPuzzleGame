@@ -6,8 +6,8 @@ import pygame
 pygame.init()
 
 # board dimensions
-WIDTH = 400
-HEIGHT = 400
+WIDTH = 450
+HEIGHT = 450
 
 # number of rows and cols on board
 ROWS = 4
@@ -37,3 +37,6 @@ QUEEN = pygame.transform.scale(pygame.image.load(
 
 # sound for when piece is set down
 piece_sound = pygame.mixer.Sound("assets/clack.mp3")
+
+# sound for when you are
+boo_sound = pygame.mixer.Sound("assets/boo.mp3")
