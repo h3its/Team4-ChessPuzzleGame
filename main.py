@@ -5,6 +5,7 @@ Runs the game and handles user input
 import pygame
 from constants import *
 from game import Game
+import json
 
 FPS = 60
 
@@ -16,13 +17,18 @@ pygame.display.set_caption('Chess Puzzle Game')
 runs the main processes of the game such as drawing the board and shelf
 """
 
+def load_games_definitions(filename):
+    with open(filename) as file:
+        json_game_definitions = file.read()
+        return json.loads(json_game_definitions)
 
 def main():
+    game_definitions = load_games_definitions('gameDefinitions.json')
     run = True
     # normalize game run speed on all hardware
     clock = pygame.time.Clock()
 
-    game = Game(WIN)
+    game = Game(WIN, game_definitions[0])  # passing in first game definiton into game object
 
     while run:
         clock.tick(FPS)
