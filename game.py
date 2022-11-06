@@ -9,7 +9,12 @@ from constants import *
 
 class Game:
 
-    def __init__(self, win):
+    def __init__(self, win, game_definition):
+        self.game_def = game_definition
+        self.ROWS = game_definition['ROWS']
+        self.COLS = game_definition['COLS']
+       # win.
+       # self.SQUARE_SIZE = HEIGHT // ROWS
         self._init()
         self.selected = None
         self.win = win
@@ -29,7 +34,7 @@ class Game:
 
     def _init(self):
         self.selected = None
-        self.board = Board()
+        self.board = Board(self.game_def)
 
     """
     resets board to initial state

@@ -3,18 +3,17 @@ Represents a chess Queen
 """
 
 from piece import Piece
-from constants import QUEEN
 
 class Queen(Piece):
 
-    def __init__(self, number):
-        super().__init__(number)
+    def __init__(self, col, game_def):
+        super().__init__(col, game_def)
 
     """
     Uses the Piece draw method and passes an image to use
     """
     def draw(self, win):
-        super()._draw(win, QUEEN)
+        super()._draw(win, self.game_def['QUEEN'])
 
     """
     Makes the Queen print "Q" in any string representation

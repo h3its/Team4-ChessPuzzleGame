@@ -4,16 +4,16 @@ Represents a chess piece on the board
 
 import pygame
 from abc import abstractmethod
-from constants import SQUARE_SIZE, ROWS, QUEEN
 
 
 class Piece:
-    def __init__(self, number):
-        self.number = number
-        self.col = number
-        self.row = ROWS
+    def __init__(self,col, game_def):
         self.x = 0
         self.y = 0
+        self.game_def = game_def
+        self.number = self.game_def['COLS']
+        self.col = col
+        self.row = self.game_def['ROWS']
         self.calc_pos()
 
     """
@@ -21,8 +21,8 @@ class Piece:
     """
 
     def calc_pos(self):
-        self.x = SQUARE_SIZE * self.col  # + SQUARE_SIZE // 2
-        self.y = SQUARE_SIZE * self.row  # + SQUARE_SIZE // 2
+        self.x = self.game_def['SQUARE_SIZE'] * self.col  # + SQUARE_SIZE // 2
+        self.y = self.game_def['SQUARE_SIZE'] * self.row  # + SQUARE_SIZE // 2
 
     """
     draws the piece
@@ -34,7 +34,7 @@ class Piece:
     def draw_while_moving(self, win):
         pos = pygame.mouse.get_pos()
         x, y = pos
-        win.blit(QUEEN, (x - SQUARE_SIZE // 2, y - SQUARE_SIZE // 2))
+        win.blit(self.game_def['QUEEN'], (x - self.game_def['SQUARE_SIZE'] // 2, y - self.game_def['SQUARE_SIZE'] // 2))
 
     """
     moves the piece to the specified row and col

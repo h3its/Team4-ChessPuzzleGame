@@ -15,7 +15,10 @@ class Board:
     """
     FPS = 60
 
-    def __init__(self):
+    def __init__(self, game_def):
+        self.game_def = game_def
+        self.ROWS = game_def['ROWS']
+        self.COLS = game_def['COLS']
         self.board = []
         self.selected_piece = None
         self.correct = False
@@ -25,23 +28,24 @@ class Board:
         self.minutes = 0
         self.hours = 0
         self.frame_count = 0
+        self.font_size = 15 #size of timer and labels
     """
     draw squares on board
     """
 
     def draw_squares(self, win):
         win.fill(GREEN)
-        for row in range(ROWS):
-            for col in range(row % 2, ROWS, 2):
-                pygame.draw.rect(win, WHITE, (row * SQUARE_SIZE,
-                                 col * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+        for row in range(self.ROWS):    # self.ROWS
+            for col in range(row % 2, self.ROWS, 2):
+                pygame.draw.rect(win, WHITE, (row * self.game_def['SQUARE_SIZE'],
+                                 col * self.game_def['SQUARE_SIZE'], self.game_def['SQUARE_SIZE'], self.game_def['SQUARE_SIZE']))
 
     """
     draw shelf on board
     """
 
     def draw_shelf(self, win):
-        pygame.draw.rect(win, BROWN, (0, HEIGHT, WIDTH, SHELF_SIZE))
+        pygame.draw.rect(win, BROWN, (0, self.game_def['HEIGHT'], self.game_def['WIDTH'], self.game_def['SHELF_SIZE']))
 
     """
     draw Start Menu on board
@@ -49,7 +53,7 @@ class Board:
 
     def draw_start_menu(self, win):
         pygame.draw.rect(
-            win, BLACK, (0, HEIGHT + SHELF_SIZE, WIDTH, START_MENU_HEIGHT))
+            win, BLACK, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'], self.game_def['WIDTH'], self.game_def['START_MENU_HEIGHT']))
         # pygame.draw.rect(win, BLACK, (0, HEIGHT + STARTMENUHEIGHT / 2, WIDTH, SQUARE_SIZE))
         # pygame.font.init()
         # FONT = pygame.font.SysFont('comicsans', 30)
@@ -59,11 +63,12 @@ class Board:
         # win.blit(font, 0, HEIGHT + STARTMENUHEIGHT / 2)
         # font2 = pygame.font.SysFont('comicsans', 30)
         pygame.font.init()
-        font1 = pygame.font.SysFont('comicsans', 30)
+        font1 = pygame.font.SysFont('comicsans', self.font_size)
+
         img1 = font1.render('R - Reset | N - Next Level', True, WHITE)
-        win.blit(img1, (0, HEIGHT + SHELF_SIZE + 35))
+        win.blit(img1, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + font1.get_height()))
         img2 = font1.render('SPACE - Check', True, WHITE)
-        win.blit(img2, (0, HEIGHT + SHELF_SIZE))
+        win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
 
         # BUTTON_WIDTH = WIDTH // 3 - 10
         # BUTTON_PADDING = 7.5
@@ -77,22 +82,22 @@ class Board:
     """
 
     def setup_board(self):
-        for row in range(ROWS+1):
+        for row in range(self.ROWS+1):
             self.board.append([])
 
-        for row in range(ROWS):
-            for col in range(COLS):
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
                 self.board[row].append(0)
 
-        for col in range(COLS):
-            self.board[ROWS].append(Queen(col))
+        for col in range(self.COLS):
+            self.board[self.ROWS].append(Queen(col, self.game_def))
 
     """
     prints a string representation of board state
     """
 
     def print_board(self):
-        for row in range(ROWS+1):
+        for row in range(self.ROWS+1):
             print(*self.board[row])
 
     """
@@ -104,8 +109,8 @@ class Board:
         self.draw_shelf(win)
         self.draw_start_menu(win)
         self.draw_timer(win)
-        for row in range(ROWS+1):
-            for col in range(COLS):
+        for row in range(self.ROWS+1):
+            for col in range(self.COLS):
                 piece = self.board[row][col]
                 if piece != 0 and piece is not selected_piece:
                     piece.draw(win)
@@ -136,8 +141,8 @@ class Board:
     """
 
     def is_shelf_empty(self):
-        for col in range(COLS):
-            if self.board[ROWS][col] != 0:
+        for col in range(self.COLS):
+            if self.board[self.ROWS][col] != 0:
                 return False
 
         return True
@@ -147,8 +152,8 @@ class Board:
     """
 
     def check(self):
-        for row in range(ROWS):
-            for col in range(COLS):
+        for row in range(self.ROWS):
+            for col in range(self.COLS):
                 piece = self.get_piece(row, col)
                 if piece != 0:
                     result = piece.check_attacks(self.board, row, col)
@@ -169,9 +174,9 @@ class Board:
 
     def draw_correct(self, win):
         pygame.font.init()
-        font = pygame.font.SysFont('comicsansbold', SQUARE_SIZE)
+        font = pygame.font.SysFont('comicsansbold', self.game_def['SQUARE_SIZE'])
         text = font.render('CORRECT!', True, GGREEN, BLACK)
-        text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        text_rect = text.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] // 2))
         win.blit(text, text_rect)
 
     """
@@ -194,9 +199,9 @@ class Board:
 
     def draw_wrong(self, win):
         pygame.font.init()
-        font = pygame.font.SysFont('comicsansbold', SQUARE_SIZE)
+        font = pygame.font.SysFont('comicsansbold', self.game_def['SQUARE_SIZE'])
         text = font.render('TRY AGAIN!', True, RED, BLACK)
-        text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        text_rect = text.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] // 2))
         win.blit(text, text_rect)
 
     def timer(self):
@@ -214,9 +219,9 @@ class Board:
 
     def draw_timer(self, win):
         pygame.font.init()
-        font = pygame.font.SysFont('comicsans', 30)
+        font = pygame.font.SysFont('comicsans', self.font_size)
         time_text = font.render(
             "Time: " + str(self.hours) + ":" + str(self.minutes) + ":" + str(self.seconds), True, WHITE)
         time_rect = time_text.get_rect()
-        time_rect.topleft = ((0, HEIGHT + SHELF_SIZE + 70))
+        time_rect.topleft = ((0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + 2 * font.get_height()))
         win.blit(time_text, time_rect)
