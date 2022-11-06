@@ -44,7 +44,7 @@ def initialize_game(game_num):
     WIN = pygame.display.set_mode(
         (game_definition['WIDTH'],
          game_definition['HEIGHT'] + game_definition['SHELF_SIZE'] + game_definition['START_MENU_HEIGHT']))
-    pygame.display.set_caption('Chess Puzzle Game')
+    pygame.display.set_caption(game_definition['gameName'])
     return WIN
 
 
