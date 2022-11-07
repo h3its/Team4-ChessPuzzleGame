@@ -35,6 +35,7 @@ class Game:
     def _init(self):
         self.selected = None
         self.board = Board(self.game_def)
+        boo_sound.stop()
 
     """
     resets board to initial state
@@ -69,6 +70,7 @@ class Game:
         moveto = self.board.get_piece(row, col)
         if self.selected and moveto == 0:
             self.board.move(self.selected, row, col)
+            piece_sound.play()
         else:
             return False
 

@@ -82,7 +82,6 @@ def main():
                     if y <= game_definition['HEIGHT'] + game_definition['SHELF_SIZE']:
                         row, col = get_row_col_from_mouse(pos)
                         game.drop(row, col)
-                        piece_sound.play()
 
             if event.type != pygame.KEYDOWN:
                 continue
