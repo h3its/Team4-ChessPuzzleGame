@@ -53,6 +53,7 @@ class Game:
             self.board.is_not_wrong()
         if self.board.get_piece(row, col) != 0:
             self.selected = self.board.get_piece(row, col)
+            boo_sound.stop()
     """
     moves the piece then unselects it
     """

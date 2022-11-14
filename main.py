@@ -14,10 +14,12 @@ FPS = 60
 runs the main processes of the game such as drawing the board and shelf
 """
 
+
 def load_games_definitions(filename):
     with open(filename) as file:
         json_game_definitions = file.read()
         return json.loads(json_game_definitions)
+
 
 def get_window_size():
     d = pygame.display.Info()
@@ -25,10 +27,12 @@ def get_window_size():
     display_width = d.current_w
     size = min(display_height, display_width)
     size = size - size // 2
-    return size,size
+    return size, size
+
 
 game_definition = dict()
 width, height = get_window_size()
+
 
 def initialize_game(game_num):
     global game_definition
@@ -52,14 +56,12 @@ def main():
     current_game = 0
     WIN = initialize_game(current_game)
 
-
     run = True
     # normalize game run speed on all hardware
     clock = pygame.time.Clock()
 
-    game = Game(WIN, game_definition)  # passing in first game definiton into game object
-
-
+    # passing in first game definiton into game object
+    game = Game(WIN, game_definition)
 
     while run:
         clock.tick(FPS)
@@ -112,4 +114,4 @@ def get_row_col_from_mouse(pos):
     return row, col
 
 
-main()
+# Jenny moved the "main()" call that was previously here into login
