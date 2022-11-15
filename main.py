@@ -93,9 +93,10 @@ def main():
                 game.reset()
 
             if event.key == pygame.K_n:
-                current_game = current_game + 1
-                WIN = initialize_game(current_game)
-                game = Game(WIN, game_definition)
+                if game.board.correct:
+                    current_game = current_game + 1
+                    WIN = initialize_game(current_game)
+                    game = Game(WIN, game_definition)
 
         game.update()
 

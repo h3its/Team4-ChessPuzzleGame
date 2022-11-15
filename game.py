@@ -86,6 +86,7 @@ class Game:
             result = self.board.check()
         if result:
             self.board.is_correct()
+            correct_sound.play()
         else:
             self.board.is_wrong()
             boo_sound.play()

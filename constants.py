@@ -39,3 +39,6 @@ piece_sound = pygame.mixer.Sound("assets/clack.mp3")
 
 # sound for when you are
 boo_sound = pygame.mixer.Sound("assets/boo.mp3")
+
+# sound for when level is completed
+correct_sound = pygame.mixer.Sound("assets/correct.wav")
