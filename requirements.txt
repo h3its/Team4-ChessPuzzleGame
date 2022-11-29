@@ -11,3 +11,6 @@ sqlparse==0.4.3
 toml==0.10.2
 tzdata==2022.4
 virtualenv==20.16.5
+pygame==2.1.2
+psycopg2-binary
+uuid
