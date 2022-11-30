@@ -6,17 +6,17 @@ from main import *
 
 class Login:
 
-    def __init__(self, WIN):
-        self.WIN = WIN
+    def __init__(self, LWIN):
+        self.LWIN = LWIN
         # Size of display Window
-        self.WIN.geometry('460x460')
+        self.LWIN.geometry('460x460')
         # Prohibits resizing of the Window
-        self.WIN.resizable(0, 0)
+        self.LWIN.resizable(0, 0)
         # Names the title bar
-        self.WIN.title('Login')
+        self.LWIN.title('Login')
         # Sets Window as a 460 by 460 frame
         self.login_window = Frame(
-            self.WIN, bg='black', width='460', height='460')
+            self.LWIN, bg='black', width='460', height='460')
         # Fills frame with black
         self.login_window.pack(fill='both', expand='yes')
 
@@ -146,11 +146,13 @@ class Login:
     # Allows user to skip the sign-up/login process and go directly to the game
     def skip(self):
         self.show_button = Button(
-            self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0)
+            self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=LWIN.withdraw())
         """Opens the game"""
         main()
+        LWIN.quit()
 
     # Allows user to create a new password
+
     def forget_password(self):
         # Creates the forgot password window itself
         self.forget_window = Toplevel()
@@ -253,11 +255,6 @@ class Login:
         self.submit2_button.place(x=12, y=10)
 
 
-def page():
-    WIN = Tk()
-    Login(WIN)
-    WIN.mainloop()
-
-
-if __name__ == '__main__':
-    page()
+LWIN = Tk()
+Login(LWIN)
+LWIN.mainloop()
