@@ -13,7 +13,10 @@ class Queen(Piece):
     Uses the Piece draw method and passes an image to use
     """
     def draw(self, win):
-        super()._draw(win, self.game_def['QUEEN'])
+        super()._draw(win, self.game_def['QUEEN_PIC'])
+
+    def draw_while_moving(self, win):
+        super().draw_while_moving(win, self.game_def['QUEEN_PIC'])
 
     """
     Makes the Queen print "Q" in any string representation

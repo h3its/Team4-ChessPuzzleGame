@@ -43,8 +43,12 @@ def initialize_game(game_num):
     game_definition['START_MENU_HEIGHT'] = game_definition['SQUARE_SIZE']
     game_definition['SHELF_SIZE'] = game_definition['SQUARE_SIZE']
     ss = game_definition['SQUARE_SIZE']
-    game_definition['QUEEN'] = pygame.transform.scale(pygame.image.load(
+    game_definition['QUEEN_PIC'] = pygame.transform.scale(pygame.image.load(
         'assets/queen.png'), (ss, ss))
+    game_definition['ROOK_PIC'] = pygame.transform.scale(pygame.image.load(
+        'assets/rook.png'), (ss, ss))
+    game_definition['BISHOP_PIC'] = pygame.transform.scale(pygame.image.load(
+        'assets/bishop.png'), (ss, ss))
     WIN = pygame.display.set_mode(
         (game_definition['WIDTH'],
          game_definition['HEIGHT'] + game_definition['SHELF_SIZE'] + game_definition['START_MENU_HEIGHT']))
@@ -97,8 +101,11 @@ def main():
             if event.key == pygame.K_n:
                 if game.board.correct:
                     current_game = current_game + 1
-                    WIN = initialize_game(current_game)
-                    game = Game(WIN, game_definition)
+                    try:
+                        WIN = initialize_game(current_game)
+                        game = Game(WIN, game_definition)
+                    except IndexError:
+                        game.finish()
 
         game.update()
 

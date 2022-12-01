@@ -6,6 +6,8 @@ import pygame
 from constants import *
 from piece import Piece
 from queen import Queen
+from rook import Rook
+from bishop import Bishop
 
 
 class Board:
@@ -23,6 +25,7 @@ class Board:
         self.selected_piece = None
         self.correct = False
         self.wrong = False
+        self.done = False
         self.setup_board()
         self.seconds = 0
         self.minutes = 0
@@ -80,17 +83,16 @@ class Board:
     """
     sets up the initial state of the board
     """
-
     def setup_board(self):
         for row in range(self.ROWS+1):
             self.board.append([])
 
-        for row in range(self.ROWS):
+        for row in range(self.ROWS+1):
             for col in range(self.COLS):
                 self.board[row].append(0)
 
-        for col in range(self.COLS):
-            self.board[self.ROWS].append(Queen(col, self.game_def))
+        for col in range(self.game_def['NUM_PIECES']):
+            self.board[self.ROWS][col] = (globals()[self.game_def['PIECES'][col]](col, self.game_def))
 
     """
     prints a string representation of board state
@@ -116,7 +118,9 @@ class Board:
                     piece.draw(win)
                 if piece is selected_piece:
                     piece.draw_while_moving(win)
-        if self.correct:
+        if self.done:
+            self.draw_congrats(win)
+        elif self.correct:
             self.draw_correct(win)
         elif self.wrong:
             self.draw_wrong(win)
@@ -180,6 +184,22 @@ class Board:
         win.blit(text, text_rect)
 
     """
+    Draws "CONGRATS!" on screen
+    """
+    def draw_congrats(self, win):
+        pygame.font.init()
+        font = pygame.font.SysFont('comicsansbold', self.game_def['SQUARE_SIZE'])
+        text = font.render('CONGRATS!', True, GOLD, BLACK)
+        text_rect = text.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] // 2))
+        win.blit(text, text_rect)
+
+    """
+    Set done to True
+    """
+    def is_done(self):
+        self.done = True
+
+    """
     Sets wrong to True
     """
 
@@ -225,3 +245,6 @@ class Board:
         time_rect = time_text.get_rect()
         time_rect.topleft = ((0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + 2 * font.get_height()))
         win.blit(time_text, time_rect)
+
+
+

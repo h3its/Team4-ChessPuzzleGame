@@ -93,6 +93,12 @@ class Game:
             boo_sound.play()
 
     """
+    Finishes the game
+    """
+    def finish(self):
+        self.board.is_done()
+
+    """
     Returns True if pieces can be moved, False if not
     Pieces can be moved until level is completed. Once the solution is checked and "Correct!" is
     displayed, pieces are not movable.
@@ -100,3 +106,6 @@ class Game:
 
     def movable(self):
         return not self.board.correct
+
+
+
