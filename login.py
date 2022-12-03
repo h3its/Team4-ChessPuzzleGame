@@ -1,7 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import pygame
-from main import *
 
 
 class Login:
@@ -256,5 +255,6 @@ class Login:
 
 
 LWIN = Tk()
+from main import * # moved here so tkintr can initializa properly.
 Login(LWIN)
 LWIN.mainloop()
