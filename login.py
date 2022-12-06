@@ -2,16 +2,22 @@ from tkinter import *
 from PIL import ImageTk, Image
 import pygame
 from main import *
+from db import ChessDB
+from service import InvalidLoginException, UserNotFoundException, ChessService
 
 
 class Login:
 
-    def __init__(self, LWIN):
+    # TODO: add service to here
+    def __init__(self, service, LWIN):
+        # TODO: self.service = service
+        self.service = service
+
         self.LWIN = LWIN
         # Size of display Window
         self.LWIN.geometry('460x460')
         # Prohibits resizing of the Window
-        self.LWIN.resizable(0, 0)
+        # self.LWIN.resizable(0, 0)
         # Names the title bar
         self.LWIN.title('Login')
         # Sets Window as a 460 by 460 frame
@@ -19,6 +25,8 @@ class Login:
             self.LWIN, bg='black', width='460', height='460')
         # Fills frame with black
         self.login_window.pack(fill='both', expand='yes')
+
+        
 
         ####### TITLE #########
         # Sets title background to green
@@ -94,7 +102,7 @@ class Login:
 
         # Creates a login button and sets placement
         self.login_button = Button(self.login_button_label, text='LOGIN', font=(
-            'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white')
+            'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white', command=self.login_submit)
         self.login_button.place(x=12, y=10)
 
         # Creates a forgot password link
@@ -148,7 +156,7 @@ class Login:
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=LWIN.withdraw())
         """Opens the game"""
-        main()
+        main(self.service, None)
         LWIN.quit()
 
     # Allows user to create a new password
@@ -201,8 +209,13 @@ class Login:
             'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white')
         self.submit1_button.place(x=12, y=10)
 
+    # TODO: implement this jawn and wire it up to some button ...
+    # def login(self, yyy)
+
     def create_account(self):
+        # TODO: somewhere here self.service.signup(xxxxx)
         # Creates the create account window itself
+        # print("CREATE ACCOUNT")
         self.create_window = Toplevel()
         self.create_window.geometry('460x460')
         self.create_window.title('Create Account')
@@ -251,10 +264,36 @@ class Login:
         self.submit2_button_label.place(x=115, y=330)
         # Creates a submit button and sets placement
         self.submit2_button = Button(self.submit2_button_label, text='SUBMIT', font=(
-            'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white')
+            'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white',
+            command=self.create_account_submit)
         self.submit2_button.place(x=12, y=10)
 
+    def login_submit(self):
+        # self.service.login -> handle the InvalidLoginException
+        try:
+            email = self.username_entry.get()
+            password = self.password_entry.get()
+            self.service.login(email, password)
+            print("LOGIN SUCCESSFUL!!!")
+            main(email, self.service)
+            LWIN.quit()
+        except InvalidLoginException:
+            # TODO: show a message
+            print("LOGIN FAILED!!!")
 
+    def create_account_submit(self):
+        email = self.email_entry.get()
+        password = self.password_entry.get()
+        password2 = self.confirm_entry.get()
+
+        if password != password2:
+            # Alert here
+            print("PASSWORDS DO NOT MATCH")
+        else:
+            self.service.signup(email, password)
+
+db = ChessDB(dbname="postgres", user="postgres", password="example", host="localhost", port=5432)
+service = ChessService(db)
 LWIN = Tk()
-Login(LWIN)
+Login(service, LWIN)
 LWIN.mainloop()

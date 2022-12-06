@@ -112,8 +112,7 @@ class ChessDB:
         
 
     def get_high_score(self, user_email):
-        # TODO
-        # very similar to get_user_by_email
+        
         command = """SELECT * FROM chess.score 
                      WHERE user_email = %s
                      ORDER BY score DESC 

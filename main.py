@@ -52,7 +52,10 @@ def initialize_game(game_num):
     return WIN
 
 
-def main():
+def main(service, email):
+    # Create a Database instance (ChessDB)
+    # Create a ChessService(db)
+    # Pass the service to whoever needs it
     current_game = 0
     WIN = initialize_game(current_game)
 
@@ -60,8 +63,10 @@ def main():
     # normalize game run speed on all hardware
     clock = pygame.time.Clock()
 
-    # passing in first game definiton into game object
-    game = Game(WIN, game_definition)
+    # passing in first game definiton into game objectOD
+    # TODO: pass chess esrvice into Game
+
+    game = Game(WIN, game_definition, service, email)
 
     while run:
         clock.tick(FPS)
