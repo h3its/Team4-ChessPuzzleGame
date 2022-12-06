@@ -4,9 +4,9 @@ from bishop import Bishop
 
 
 # Currently, MUST ROWS == COLS
-ROWS = 4
-COLS = 4
-NUM_PIECES = 4
+ROWS = 6
+COLS = 6
+NUM_PIECES = 6
 
 board = []
 pieces = []
@@ -14,9 +14,11 @@ pieces = []
 # I believe this will work more reliably when pieces are in descendingly-movable order
 # HOWEVER it is not currently guaranteed to work if pieces are not all of same type
 def setup_pieces():
-    pieces.append(Queen())
-    pieces.append(Queen())
     pieces.append(Bishop())
+    pieces.append(Bishop())
+    pieces.append(Bishop())
+    pieces.append(Rook())
+    pieces.append(Rook())
     pieces.append(Rook())
 
 def print_board():

@@ -31,10 +31,10 @@ class Piece:
     def _draw(self, win, image):
         win.blit(image, (self.x, self.y))
 
-    def draw_while_moving(self, win):
+    def draw_while_moving(self, win, image):
         pos = pygame.mouse.get_pos()
         x, y = pos
-        win.blit(self.game_def['QUEEN'], (x - self.game_def['SQUARE_SIZE'] // 2, y - self.game_def['SQUARE_SIZE'] // 2))
+        win.blit(image, (x - self.game_def['SQUARE_SIZE'] // 2, y - self.game_def['SQUARE_SIZE'] // 2))
 
     """
     moves the piece to the specified row and col

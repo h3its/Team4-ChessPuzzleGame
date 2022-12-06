@@ -29,6 +29,7 @@ BLACK = (0, 0, 0)
 GGREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
+GOLD = (255, 215, 0)
 
 # queen image
 #QUEEN = pygame.transform.scale(pygame.image.load(

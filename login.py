@@ -8,16 +8,13 @@ from service import InvalidLoginException, UserNotFoundException, ChessService
 
 class Login:
 
-    # TODO: add service to here
     def __init__(self, service, LWIN):
-        # TODO: self.service = service
         self.service = service
-
         self.LWIN = LWIN
         # Size of display Window
         self.LWIN.geometry('460x460')
         # Prohibits resizing of the Window
-        # self.LWIN.resizable(0, 0)
+        self.LWIN.resizable(0, 0)
         # Names the title bar
         self.LWIN.title('Login')
         # Sets Window as a 460 by 460 frame
