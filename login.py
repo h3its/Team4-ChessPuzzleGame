@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import pygame
 from main import *
@@ -267,6 +268,9 @@ class Login:
 
     def login_submit(self):
         # self.service.login -> handle the InvalidLoginException
+        if self.username_entry.get() == '' or self.password_entry.get() == '':
+            return
+
         try:
             email = self.username_entry.get()
             password = self.password_entry.get()
@@ -275,7 +279,7 @@ class Login:
             main(email, self.service)
             LWIN.quit()
         except InvalidLoginException:
-            # TODO: show a message
+            messagebox.showerror('Login Failed', 'Login failed!')
             print("LOGIN FAILED!!!")
 
     def create_account_submit(self):
@@ -284,8 +288,7 @@ class Login:
         password2 = self.confirm_entry.get()
 
         if password != password2:
-            # Alert here
-            print("PASSWORDS DO NOT MATCH")
+            messagebox.showerror('Error', 'Passwords do not match!')
         else:
             self.service.signup(email, password)
 
