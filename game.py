@@ -9,12 +9,15 @@ from constants import *
 
 class Game:
 
-    def __init__(self, win, game_definition):
+    # TODO: maybe here add ChessService
+    def __init__(self, win, game_definition, service, email):
         self.game_def = game_definition
         self.ROWS = game_definition['ROWS']
         self.COLS = game_definition['COLS']
        # win.
        # self.SQUARE_SIZE = HEIGHT // ROWS
+        self.service = service
+        self.email = email
         self._init()
         self.selected = None
         self.win = win
@@ -35,7 +38,8 @@ class Game:
     def _init(self):
         self.selected = None
         self.board = Board(self.game_def)
-        boo_sound.stop()
+        #TODO: get high score
+        # boo_sound.stop()
 
     """
     resets board to initial state
@@ -53,7 +57,7 @@ class Game:
             self.board.is_not_wrong()
         if self.board.get_piece(row, col) != 0:
             self.selected = self.board.get_piece(row, col)
-            boo_sound.stop()
+            # boo_sound.stop()
     """
     moves the piece then unselects it
     """
@@ -71,7 +75,7 @@ class Game:
         moveto = self.board.get_piece(row, col)
         if self.selected and moveto == 0:
             self.board.move(self.selected, row, col)
-            piece_sound.play()
+            # piece_sound.play()
         else:
             return False
 
@@ -87,10 +91,10 @@ class Game:
             result = self.board.check()
         if result:
             self.board.is_correct()
-            correct_sound.play()
+            # correct_sound.play()
         else:
             self.board.is_wrong()
-            boo_sound.play()
+            # boo_sound.play()
 
     """
     Finishes the game

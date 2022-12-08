@@ -36,10 +36,10 @@ GOLD = (255, 215, 0)
  #   'assets/queen.png'), (SQUARE_SIZE, SQUARE_SIZE))
 
 # sound for when piece is set down
-piece_sound = pygame.mixer.Sound("assets/clack.mp3")
+# piece_sound = pygame.mixer.Sound("assets/clack.mp3")
 
 # sound for when you are
-boo_sound = pygame.mixer.Sound("assets/boo.mp3")
+# boo_sound = pygame.mixer.Sound("assets/boo.mp3")
 
 # sound for when level is completed
-correct_sound = pygame.mixer.Sound("assets/correct.wav")
+# correct_sound = pygame.mixer.Sound("assets/correct.wav")
