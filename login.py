@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import pygame
-from main import *
 from db import ChessDB
 from service import InvalidLoginException, UserNotFoundException, ChessService
 
@@ -295,5 +294,6 @@ class Login:
 db = ChessDB(dbname="postgres", user="postgres", password="example", host="localhost", port=5432)
 service = ChessService(db)
 LWIN = Tk()
+from main import *
 Login(service, LWIN)
 LWIN.mainloop()
