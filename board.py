@@ -17,7 +17,7 @@ class Board:
     """
     FPS = 60
 
-    def __init__(self, game_def):
+    def __init__(self, game_def, service, email, level):
         self.game_def = game_def
         self.ROWS = game_def['ROWS']
         self.COLS = game_def['COLS']
@@ -32,6 +32,10 @@ class Board:
         self.hours = 0
         self.frame_count = 0
         self.font_size = 15 #size of timer and labels
+        self.service = service
+        self.email = email
+        self.level = level
+
     """
     draw squares on board
     """
@@ -73,6 +77,18 @@ class Board:
         img2 = font1.render('SPACE - Check', True, WHITE)
         win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
 
+        if self.email:
+            user_line = 'Current User: ' + self.email
+        else:
+            user_line = 'Not logged in'
+
+        img3 = font1.render(user_line, True, WHITE)
+        win.blit(img3, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (3 * font1.get_height())))
+
+        ldr_title = font1.render('LEADERBOARD', True, WHITE)
+        ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (4 * font1.get_height())))
+        win.blit(ldr_title, ldr_title_rect)
+
         # BUTTON_WIDTH = WIDTH // 3 - 10
         # BUTTON_PADDING = 7.5
         # pygame.draw.rect(win, BLACK, (0, HEIGHT + SQUARE_SIZE, WIDTH, START_MENU_HEIGHT))
@@ -111,6 +127,7 @@ class Board:
         self.draw_shelf(win)
         self.draw_start_menu(win)
         self.draw_timer(win)
+        self.draw_leaderboard(win)
         for row in range(self.ROWS+1):
             for col in range(self.COLS):
                 piece = self.board[row][col]
@@ -246,5 +263,37 @@ class Board:
         time_rect.topleft = ((0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + 2 * font.get_height()))
         win.blit(time_text, time_rect)
 
+    def get_time(self):
+        return self.hours * 3600 + self.minutes * 60 + self.seconds
+
+    def draw_leaderboard(self, win):
+        leaders = self.service.get_leaders(self.level)
+
+        first_name = ''
+        first_score = ''
+        second_name = ''
+        second_score = ''
+        third_name = ''
+        third_score = ''
+
+        if leaders:
+            if len(leaders) >= 1:
+                first_name = leaders[0][0]
+                first_score = str(leaders[0][1]) + ' sec'
+            if len(leaders) >= 2:
+                second_name = leaders[1][0]
+                second_score = str(leaders[1][1]) + ' sec'
+            if len(leaders) == 3:
+                third_name = leaders[2][0]
+                third_score = str(leaders[2][1]) + ' sec'
+
+        pygame.font.init()
+        font = pygame.font.SysFont('comicsans', self.font_size)
+        first = font.render('1.   ' + first_name + '   ' + first_score, True, GOLD)
+        win.blit(first, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (5 * font.get_height())))
+        second = font.render('2.   ' + second_name + '   ' + second_score, True, SILVER)
+        win.blit(second, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (6 * font.get_height())))
+        third = font.render('3.   ' + third_name + '   ' + third_score, True, BRONZE)
+        win.blit(third, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (7 * font.get_height())))
 
 

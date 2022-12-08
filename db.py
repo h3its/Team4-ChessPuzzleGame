@@ -35,7 +35,7 @@ class ChessDB:
                     score integer NOT NULL,
                     level integer NOT NULL,
                     ts timestamptz NOT NULL DEFAULT NOW(),
-                    CONSTRAINT "scores_pkey" PRIMARY KEY (user_email, ts),
+                    CONSTRAINT "scores_pkey" PRIMARY KEY (user_email, level, ts),
                     CONSTRAINT fk_scores_user
                         FOREIGN KEY(user_email) 
 	                    REFERENCES chess.user(email)
@@ -53,7 +53,7 @@ class ChessDB:
                 self.pool.putconn(conn)
 
     def list_users(self):
-        command = """SELECT id, email, password FROM chess.user ORDER BY email"""
+        command = """SELECT email, password FROM chess.user ORDER BY email"""
         conn = self.pool.getconn()
         try:
            # read the connection parameters
@@ -111,12 +111,10 @@ class ChessDB:
             self.pool.putconn(conn)
         
 
-    def get_high_score(self, user_email):
+    def get_high_score(self, user_email, level):
         
-        command = """SELECT * FROM chess.score 
-                     WHERE user_email = %s
-                     ORDER BY score DESC 
-                     LIMIT 1"""
+        command = """SELECT score FROM chess.score 
+                     WHERE user_email = %s AND level = %s"""
         conn = self.pool.getconn()
         try:
            # read the connection parameters
@@ -125,7 +123,7 @@ class ChessDB:
             cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
 
             # create table one by one        
-            cur.execute(command, (user_email,))
+            cur.execute(command, (user_email, level))
             records = cur.fetchall()
             if records:
                 return records[0]
@@ -156,3 +154,40 @@ class ChessDB:
         finally:
             self.pool.putconn(conn)
 
+    def list_leaders(self, level):
+        command = """SELECT user_email, score FROM chess.score
+                     WHERE level = %s
+                     ORDER BY score
+                     LIMIT 3"""
+        conn = self.pool.getconn()
+        try:
+            cur = conn.cursor()
+
+            cur.execute(command, str(level))
+
+            records = cur.fetchall()
+            if records:
+                return records
+            else:
+                return None
+        finally:
+            self.pool.putconn(conn)
+
+    def update_score(self, email, score, level):
+        command = """UPDATE chess.score
+                     SET score = %s
+                     WHERE user_email = %s AND
+                           level = %s"""
+        conn = self.pool.getconn()
+        try:
+            cur = conn.cursor()
+
+            cur.execute(command, (score, email, str(level)))
+
+            cur.close()
+
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            self.pool.putconn(conn)

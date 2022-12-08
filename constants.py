@@ -30,6 +30,8 @@ GGREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GOLD = (255, 215, 0)
+SILVER = (248, 248, 255)
+BRONZE = (177, 86, 15)
 
 # queen image
 #QUEEN = pygame.transform.scale(pygame.image.load(

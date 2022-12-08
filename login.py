@@ -275,7 +275,7 @@ class Login:
             password = self.password_entry.get()
             self.service.login(email, password)
             print("LOGIN SUCCESSFUL!!!")
-            main(email, self.service)
+            main(self.service, email)
             LWIN.quit()
         except InvalidLoginException:
             messagebox.showerror('Login Failed', 'Login failed!')
@@ -288,8 +288,11 @@ class Login:
 
         if password != password2:
             messagebox.showerror('Error', 'Passwords do not match!')
+        elif email in service.get_users():
+            messagebox.showerror('Error', 'Email already in use!')
         else:
             self.service.signup(email, password)
+            self.create_window.destroy()
 
 db = ChessDB(dbname="postgres", user="postgres", password="example", host="localhost", port=5432)
 service = ChessService(db)

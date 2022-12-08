@@ -10,7 +10,7 @@ from constants import *
 class Game:
 
     # TODO: maybe here add ChessService
-    def __init__(self, win, game_definition, service, email):
+    def __init__(self, win, game_definition, service, email, level):
         self.game_def = game_definition
         self.ROWS = game_definition['ROWS']
         self.COLS = game_definition['COLS']
@@ -18,6 +18,7 @@ class Game:
        # self.SQUARE_SIZE = HEIGHT // ROWS
         self.service = service
         self.email = email
+        self.level = level
         self._init()
         self.selected = None
         self.win = win
@@ -37,7 +38,7 @@ class Game:
 
     def _init(self):
         self.selected = None
-        self.board = Board(self.game_def)
+        self.board = Board(self.game_def, self.service, self.email, self.level)
         #TODO: get high score
         # boo_sound.stop()
 
@@ -95,6 +96,7 @@ class Game:
         else:
             self.board.is_wrong()
             # boo_sound.play()
+        return result
 
     """
     Finishes the game
