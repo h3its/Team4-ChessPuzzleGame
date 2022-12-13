@@ -1,3 +1,4 @@
+from main import *
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
@@ -20,16 +21,15 @@ class Login:
         # Sets Window as a 460 by 460 frame
         self.login_window = Frame(
             self.LWIN, bg='black', width='460', height='460')
+
         # Fills frame with black
         self.login_window.pack(fill='both', expand='yes')
-
-        
 
         ####### TITLE #########
         # Sets title background to green
         self.title_bg = Label(
             self.login_window, bg='#779556')
-        # Fills frame with white
+        # Fills frame
         self.title_bg.pack(ipadx=20, ipady=50, fill=X, expand="yes", anchor=N)
         # Creates Title label and sets placement
         self.title_label = Label(self.login_window, text='Chess Puzzle Game',
@@ -55,12 +55,12 @@ class Login:
         self.login_label.place(x=200, y=150)
 
         # Creates username label and sets placement
-        self.username_label = Label(
-            self.login_window, text='Username', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.username_label.place(x=40, y=210)
-        self.username_entry = Entry(self.login_window, highlightthickness=0,
-                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.username_entry.place(x=140, y=210, width=200)
+        self.email_label = Label(
+            self.login_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
+        self.email_label.place(x=75, y=210)
+        self.email_entry = Entry(self.login_window, highlightthickness=0,
+                                 relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
+        self.email_entry.place(x=140, y=210, width=200)
 
         # Creates password label and sets placement
         self.password_label = Label(
@@ -165,42 +165,65 @@ class Login:
         self.forget_window.title('Forgot Password')
         self.forget_window.config(background='black')
         self.forget_window.resizable(0, 0)
+        ####### TITLE #########
+        # Sets title background to green
+        self.title3_bg = Label(
+            self.forget_window, bg='#779556')
+        # Fills frame
+        self.title3_bg.pack(ipadx=20, ipady=50, fill=X, expand="yes", anchor=N)
+        # Creates Title label and sets placement
+        self.title3_label = Label(self.forget_window, text='Chess Puzzle Game',
+                                  bg='#779556', fg='white', font=('comic sans', 25, 'bold'))
+        self.title3_label.place(x=72, y=45)
+        # Adds queen images on left side of the Title label
+        self.queen_image1 = Image.open('assets/queen.png')
+        resize_queen = self.queen_image1.resize((64, 64))
+        queen_photo = ImageTk.PhotoImage(resize_queen)
+        self.left_image_label = Label(
+            self.forget_window, image=queen_photo)
+        self.left_image_label.image = queen_photo
+        self.left_image_label.place(x=5, y=25)
+        # Adds queen images on right side of the Title label
+        self.right_image_label = Label(
+            self.forget_window, image=queen_photo, bg='white')
+        self.right_image_label.image = queen_photo
+        self.right_image_label.place(x=386, y=25)
         # Creates Forgot Password Title
         self.ftitle_label = Label(
             self.forget_window, text='Forget Password?', bg='black', fg='grey', font=('comic sans', 17, 'bold'))
-        self.ftitle_label.place(x=130, y=80)
+        self.ftitle_label.place(x=130, y=140)
         self.ftitle_label = Label(
             self.forget_window, text='Create a new password down below', bg='black', fg='grey', font=('comic sans', 15, 'bold'))
-        self.ftitle_label.place(x=60, y=120)
+        self.ftitle_label.place(x=60, y=180)
         #######Creates entry fields for the user########
         # Creates the email label and entry field
         self.email_label = Label(
             self.forget_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.email_label.place(x=143, y=200)
+        self.email_label.place(x=143, y=240)
         self.email_entry = Entry(self.forget_window, highlightthickness=0,
                                  relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.email_entry.place(x=200, y=200, width=200)
+        self.email_entry.place(x=200, y=240, width=200)
         # Creates the new password label and entry field
         self.password_label = Label(
             self.forget_window, text='New Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.password_label.place(x=68, y=240)
+        self.password_label.place(x=68, y=280)
         self.password_entry = Entry(self.forget_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.password_entry.place(x=200, y=240, width=200)
+        self.password_entry.place(x=200, y=280, width=200)
         # Creates the confirm password label and entry field
         self.confirm_label = Label(
             self.forget_window, text='Confirm Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.confirm_label.place(x=40, y=280)
+        self.confirm_label.place(x=40, y=320)
         self.confirm_entry = Entry(self.forget_window, highlightthickness=0,
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.confirm_entry.place(x=200, y=280, width=200)
+        self.confirm_entry.place(x=200, y=320, width=200)
         # Sets Submit button image
         self.submit1_image = Image.open('assets/LoginButtonImage.png')
         submit1_photo = ImageTk.PhotoImage(self.submit1_image)
         self.submit1_button_label = Label(
             self.forget_window, image=submit1_photo, bg='black')
         self.submit1_button_label.image = submit1_photo
-        self.submit1_button_label.place(x=125, y=325)
+        self.submit1_button_label.place(x=180, y=370)
         # Creates a submit button and sets placement
         self.submit1_button = Button(self.submit1_button_label, text='SUBMIT', font=(
             'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white')
@@ -221,44 +244,66 @@ class Login:
         # Creates create account Title
         self.create_label = Label(
             self.create_window, text='Create Account', bg='black', fg='grey', font=('comic sans', 17, 'bold'))
-        self.create_label.place(x=135, y=80)
-
+        self.create_label.place(x=135, y=165)
+        ####### TITLE #########
+        # Sets title background to green
+        self.title_bg = Label(
+            self.create_window, bg='#779556')
+        # Fills frame
+        self.title_bg.pack(ipadx=20, ipady=50, fill=X, expand="yes", anchor=N)
+        # Creates Title label and sets placement
+        self.title_label = Label(self.create_window, text='Chess Puzzle Game',
+                                 bg='#779556', fg='white', font=('comic sans', 25, 'bold'))
+        self.title_label.place(x=72, y=45)
+        # Adds queen images on left side of the Title label
+        self.queen_image1 = Image.open('assets/queen.png')
+        resize_queen = self.queen_image1.resize((64, 64))
+        queen_photo = ImageTk.PhotoImage(resize_queen)
+        self.left_image_label = Label(
+            self.create_window, image=queen_photo)
+        self.left_image_label.image = queen_photo
+        self.left_image_label.place(x=5, y=25)
+        # Adds queen images on right side of the Title label
+        self.right_image_label = Label(
+            self.create_window, image=queen_photo, bg='white')
+        self.right_image_label.image = queen_photo
+        self.right_image_label.place(x=386, y=25)
         #######Creates entry fields for the user########
+        # Creates the email label and entry field
+        # self.email_label = Label(
+        #    self.create_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
+        # self.email_label.place(x=143, y=160)
+        # self.email_entry = Entry(self.create_window, highlightthickness=0,
+        #                         relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
+        # self.email_entry.place(x=200, y=160, width=200)
         # Creates the email label and entry field
         self.email_label = Label(
             self.create_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.email_label.place(x=143, y=160)
+        self.email_label.place(x=142, y=240)
         self.email_entry = Entry(self.create_window, highlightthickness=0,
                                  relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.email_entry.place(x=200, y=160, width=200)
-        # Creates the email label and entry field
-        self.username_label = Label(
-            self.create_window, text='Username', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.username_label.place(x=107, y=200)
-        self.username_entry = Entry(self.create_window, highlightthickness=0,
-                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.username_entry.place(x=200, y=200, width=200)
+        self.email_entry.place(x=200, y=240, width=200)
         # Creates the new password label and entry field
         self.password_label = Label(
             self.create_window, text='New Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.password_label.place(x=68, y=240)
+        self.password_label.place(x=68, y=280)
         self.password_entry = Entry(self.create_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.password_entry.place(x=200, y=240, width=200)
+        self.password_entry.place(x=200, y=280, width=200)
         # Creates the confirm password label and entry field
         self.confirm_label = Label(
             self.create_window, text='Confirm Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.confirm_label.place(x=40, y=280)
+        self.confirm_label.place(x=40, y=320)
         self.confirm_entry = Entry(self.create_window, highlightthickness=0,
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.confirm_entry.place(x=200, y=280, width=200)
+        self.confirm_entry.place(x=200, y=320, width=200)
         # Sets Submit button image
         self.submit2_image = Image.open('assets/LoginButtonImage.png')
         submit2_photo = ImageTk.PhotoImage(self.submit2_image)
         self.submit2_button_label = Label(
             self.create_window, image=submit2_photo, bg='black')
         self.submit2_button_label.image = submit2_photo
-        self.submit2_button_label.place(x=115, y=330)
+        self.submit2_button_label.place(x=180, y=370)
         # Creates a submit button and sets placement
         self.submit2_button = Button(self.submit2_button_label, text='SUBMIT', font=(
             'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white',
@@ -294,9 +339,10 @@ class Login:
             self.service.signup(email, password)
             self.create_window.destroy()
 
-db = ChessDB(dbname="postgres", user="postgres", password="example", host="localhost", port=5432)
+
+db = ChessDB(dbname="postgres", user="postgres",
+             password="example", host="localhost", port=5432)
 service = ChessService(db)
 LWIN = Tk()
-from main import *
 Login(service, LWIN)
 LWIN.mainloop()
