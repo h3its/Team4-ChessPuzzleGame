@@ -72,7 +72,7 @@ class Board:
         pygame.font.init()
         font1 = pygame.font.SysFont('comicsans', self.font_size)
 
-        img1 = font1.render('SPACE - Check | R - Reset | N - Next Level |', True, WHITE)
+        img1 = font1.render('SPACE - Check | R - Reset | N - Next Level ', True, WHITE)
         win.blit(img1, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] ))
        # img2 = font1.render('SPACE - Check', True, WHITE)
        # win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
