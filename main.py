@@ -100,17 +100,19 @@ def main(service, email):
             if event.key == pygame.K_SPACE:
                 if game.check_solution():
                     if email is not None:
-                        service.save_score(email, game.board.get_time(), current_game + 1)
+                        service.save_score(
+                            email, game.board.get_time(), current_game + 1)
 
             if event.key == pygame.K_r:
                 game.reset()
 
             if event.key == pygame.K_n:
-                #if game.board.correct:
+                # if game.board.correct:
                 current_game = current_game + 1
                 try:
                     WIN = initialize_game(current_game)
-                    game = Game(WIN, game_definition, service, email, current_game+1)
+                    game = Game(WIN, game_definition, service,
+                                email, current_game+1)
                 except IndexError:
                     game.finish()
 
