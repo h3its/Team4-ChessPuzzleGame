@@ -37,10 +37,16 @@ width, height = get_window_size()
 def initialize_game(game_num):
     global game_definition
     game_definitions = load_games_definitions('gameDefinitions.json')
+    #if len(game_definitions) - 1 < game_num:
+     #   game_num = 0
     game_definition = game_definitions[game_num]
     game_definition['WIDTH'], game_definition['HEIGHT'] = width, height
     game_definition['SQUARE_SIZE'] = game_definition['HEIGHT'] // game_definition['ROWS']
-    game_definition['START_MENU_HEIGHT'] = game_definition['SQUARE_SIZE']
+    #game_definition['START_MENU_HEIGHT'] = 1.5 * game_definition['SQUARE_SIZE']
+    #if game_definition['START_MENU_HEIGHT'] < 135:
+    #    game_definition['START_MENU_HEIGHT'] = 135
+    game_definition['START_MENU_HEIGHT'] = 135
+
     game_definition['SHELF_SIZE'] = game_definition['SQUARE_SIZE']
     ss = game_definition['SQUARE_SIZE']
     game_definition['QUEEN_PIC'] = pygame.transform.scale(pygame.image.load(
