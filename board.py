@@ -89,18 +89,6 @@ class Board:
         ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (2.5 * font1.get_height())))
         win.blit(ldr_title, ldr_title_rect)
 
-        if self.email:
-            user_line = 'Current User: ' + self.email
-        else:
-            user_line = 'Not logged in'
-
-        img3 = font1.render(user_line, True, WHITE)
-        win.blit(img3, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (3 * font1.get_height())))
-
-        ldr_title = font1.render('LEADERBOARD', True, WHITE)
-        ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (4 * font1.get_height())))
-        win.blit(ldr_title, ldr_title_rect)
-
         # BUTTON_WIDTH = WIDTH // 3 - 10
         # BUTTON_PADDING = 7.5
         # pygame.draw.rect(win, BLACK, (0, HEIGHT + SQUARE_SIZE, WIDTH, START_MENU_HEIGHT))
@@ -307,5 +295,3 @@ class Board:
         win.blit(second, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (4 * font.get_height())))
         third = font.render('3.   ' + third_name + '   ' + third_score, True, BRONZE)
         win.blit(third, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (5 * font.get_height())))
-
-
