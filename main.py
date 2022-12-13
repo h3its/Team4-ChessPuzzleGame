@@ -70,7 +70,7 @@ def main(service, email):
     # passing in first game definiton into game objectOD
     # TODO: pass chess esrvice into Game
 
-    game = Game(WIN, game_definition, service, email)
+    game = Game(WIN, game_definition, service, email, current_game+1)
 
     while run:
         clock.tick(FPS)
@@ -98,19 +98,23 @@ def main(service, email):
                 continue
 
             if event.key == pygame.K_SPACE:
-                game.check_solution()
+                if game.check_solution():
+                    if email is not None:
+                        service.save_score(
+                            email, game.board.get_time(), current_game + 1)
 
             if event.key == pygame.K_r:
                 game.reset()
 
             if event.key == pygame.K_n:
-                if game.board.correct:
-                    current_game = current_game + 1
-                    try:
-                        WIN = initialize_game(current_game)
-                        game = Game(WIN, game_definition)
-                    except IndexError:
-                        game.finish()
+                # if game.board.correct:
+                current_game = current_game + 1
+                try:
+                    WIN = initialize_game(current_game)
+                    game = Game(WIN, game_definition, service,
+                                email, current_game+1)
+                except IndexError:
+                    game.finish()
 
         game.update()
 
