@@ -112,7 +112,7 @@ def main(service, email):
                 game.reset()
 
             if event.key == pygame.K_n:
-                #if game.board.correct:
+                if game.board.correct:
                     current_game = current_game + 1
                     try:
                         WIN = initialize_game(current_game)
