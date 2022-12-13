@@ -112,13 +112,13 @@ def main(service, email):
                 game.reset()
 
             if event.key == pygame.K_n:
-                #if game.board.correct:
-                current_game = current_game + 1
-                try:
-                    WIN = initialize_game(current_game)
-                    game = Game(WIN, game_definition, service, email, current_game+1)
-                except IndexError:
-                    game.finish()
+                if game.board.correct:
+                    current_game = current_game + 1
+                    try:
+                        WIN = initialize_game(current_game)
+                        game = Game(WIN, game_definition, service, email, current_game+1)
+                    except IndexError:
+                        game.finish()
 
         game.update()
 

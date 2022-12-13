@@ -163,13 +163,15 @@ class ChessDB:
         try:
             cur = conn.cursor()
 
-            cur.execute(command, str(level))
+            cur.execute(command, (level,))
 
             records = cur.fetchall()
             if records:
                 return records
             else:
                 return None
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
         finally:
             self.pool.putconn(conn)
 
@@ -182,7 +184,7 @@ class ChessDB:
         try:
             cur = conn.cursor()
 
-            cur.execute(command, (score, email, str(level)))
+            cur.execute(command, (score, email, level))
 
             cur.close()
 

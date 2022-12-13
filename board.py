@@ -86,7 +86,7 @@ class Board:
         win.blit(img3, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (1 * font1.get_height())))
 
         ldr_title = font1.render('LEADERBOARD', True, WHITE)
-        ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (1.5 * font1.get_height())))
+        ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (2.5 * font1.get_height())))
         win.blit(ldr_title, ldr_title_rect)
 
         # BUTTON_WIDTH = WIDTH // 3 - 10
