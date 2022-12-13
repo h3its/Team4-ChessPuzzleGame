@@ -37,10 +37,16 @@ width, height = get_window_size()
 def initialize_game(game_num):
     global game_definition
     game_definitions = load_games_definitions('gameDefinitions.json')
+    #if len(game_definitions) - 1 < game_num:
+     #   game_num = 0
     game_definition = game_definitions[game_num]
     game_definition['WIDTH'], game_definition['HEIGHT'] = width, height
     game_definition['SQUARE_SIZE'] = game_definition['HEIGHT'] // game_definition['ROWS']
-    game_definition['START_MENU_HEIGHT'] = game_definition['SQUARE_SIZE']
+    #game_definition['START_MENU_HEIGHT'] = 1.5 * game_definition['SQUARE_SIZE']
+    #if game_definition['START_MENU_HEIGHT'] < 135:
+    #    game_definition['START_MENU_HEIGHT'] = 135
+    game_definition['START_MENU_HEIGHT'] = 135
+
     game_definition['SHELF_SIZE'] = game_definition['SQUARE_SIZE']
     ss = game_definition['SQUARE_SIZE']
     game_definition['QUEEN_PIC'] = pygame.transform.scale(pygame.image.load(
@@ -100,21 +106,19 @@ def main(service, email):
             if event.key == pygame.K_SPACE:
                 if game.check_solution():
                     if email is not None:
-                        service.save_score(
-                            email, game.board.get_time(), current_game + 1)
+                        service.save_score(email, game.board.get_time(), current_game + 1)
 
             if event.key == pygame.K_r:
                 game.reset()
 
             if event.key == pygame.K_n:
-                # if game.board.correct:
-                current_game = current_game + 1
-                try:
-                    WIN = initialize_game(current_game)
-                    game = Game(WIN, game_definition, service,
-                                email, current_game+1)
-                except IndexError:
-                    game.finish()
+                if game.board.correct:
+                    current_game = current_game + 1
+                    try:
+                        WIN = initialize_game(current_game)
+                        game = Game(WIN, game_definition, service, email, current_game+1)
+                    except IndexError:
+                        game.finish()
 
         game.update()
 

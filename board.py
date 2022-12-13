@@ -72,10 +72,22 @@ class Board:
         pygame.font.init()
         font1 = pygame.font.SysFont('comicsans', self.font_size)
 
-        img1 = font1.render('R - Reset | N - Next Level', True, WHITE)
-        win.blit(img1, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + font1.get_height()))
-        img2 = font1.render('SPACE - Check', True, WHITE)
-        win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
+        img1 = font1.render('SPACE - Check | R - Reset | N - Next Level |', True, WHITE)
+        win.blit(img1, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] ))
+       # img2 = font1.render('SPACE - Check', True, WHITE)
+       # win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
+
+        if self.email:
+            user_line = 'Current User: ' + self.email
+        else:
+            user_line = 'Not logged in'
+
+        img3 = font1.render(user_line, True, WHITE)
+        win.blit(img3, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (1 * font1.get_height())))
+
+        ldr_title = font1.render('LEADERBOARD', True, WHITE)
+        ldr_title_rect = ldr_title.get_rect(center=(self.game_def['WIDTH'] // 2, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (2.5 * font1.get_height())))
+        win.blit(ldr_title, ldr_title_rect)
 
         if self.email:
             user_line = 'Current User: ' + self.email
@@ -260,7 +272,7 @@ class Board:
         time_text = font.render(
             "Time: " + str(self.hours) + ":" + str(self.minutes) + ":" + str(self.seconds), True, WHITE)
         time_rect = time_text.get_rect()
-        time_rect.topleft = ((0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + 2 * font.get_height()))
+        time_rect.topright = ((self.game_def['WIDTH'] - 35, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] ))
         win.blit(time_text, time_rect)
 
     def get_time(self):
@@ -290,10 +302,10 @@ class Board:
         pygame.font.init()
         font = pygame.font.SysFont('comicsans', self.font_size)
         first = font.render('1.   ' + first_name + '   ' + first_score, True, GOLD)
-        win.blit(first, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (5 * font.get_height())))
+        win.blit(first, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (3 * font.get_height())))
         second = font.render('2.   ' + second_name + '   ' + second_score, True, SILVER)
-        win.blit(second, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (6 * font.get_height())))
+        win.blit(second, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (4 * font.get_height())))
         third = font.render('3.   ' + third_name + '   ' + third_score, True, BRONZE)
-        win.blit(third, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (7 * font.get_height())))
+        win.blit(third, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE'] + (5 * font.get_height())))
 
 
