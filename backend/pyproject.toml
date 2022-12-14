@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "chess"
+version = "0.1.0"
+description = ""
+authors = ["Shane Cleary <shanedavidcleary@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flask = "^2.2.2"
+pytest-flask = "^1.2.0"
+uuid = "^1.30"
+flask-marshmallow = "^0.14.0"
+flask-sqlalchemy = "^3.0.2"
+passlib = "^1.7.4"
+argon2-cffi = "^21.3.0"
+python-dotenv = "^0.21.0"
+marshmallow-sqlalchemy = "^0.28.1"
+sqlalchemy-utils = "^0.38.3"
+flask-httpauth = "^4.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
