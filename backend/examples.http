@@ -1,2 +1,22 @@
 GET http://localhost:5000/user
 Authorization: Basic test@test.com:blah
+
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "blah"
+}
+
+POST http://localhost:5000/scores
+Authorization: Basic test@test.com:blah
+Content-Type: application/json
+
+{
+    "score": 50,
+    "level": 3
+}
+
+GET http://localhost:5000/scores/top
+Authorization: Basic test@test.com:blah
