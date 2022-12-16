@@ -7,7 +7,7 @@ class UserNotFoundException(Exception):
 
 class ChessService:
 
-    def __init__(self, db):
+    def __init__(self):
         self.db = db
 
     def signup(self, email, password):

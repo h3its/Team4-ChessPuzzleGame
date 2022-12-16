@@ -1,2 +1,2 @@
-FLASK_APP=chess:create_app('dev')
+FLASK_APP=chess
 FLASK_DEBUG=1
