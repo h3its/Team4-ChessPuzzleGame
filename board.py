@@ -17,7 +17,7 @@ class Board:
     """
     FPS = 60
 
-    def __init__(self, game_def, service, email, level):
+    def __init__(self, game_def, service, level):
         self.game_def = game_def
         self.ROWS = game_def['ROWS']
         self.COLS = game_def['COLS']
@@ -33,7 +33,6 @@ class Board:
         self.frame_count = 0
         self.font_size = 15 #size of timer and labels
         self.service = service
-        self.email = email
         self.level = level
 
     """

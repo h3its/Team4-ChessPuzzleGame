@@ -153,7 +153,7 @@ class Login:
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=LWIN.withdraw())
         """Opens the game"""
-        main(self.service, None)
+        main(self.service)
         LWIN.quit()
 
     # Allows user to create a new password
@@ -275,7 +275,7 @@ class Login:
             password = self.password_entry.get()
             self.service.login(email, password)
             print("LOGIN SUCCESSFUL!!!")
-            main(self.service, email)
+            main(self.service)
             LWIN.quit()
         except InvalidLoginException:
             messagebox.showerror('Login Failed', 'Login failed!')
@@ -291,8 +291,7 @@ class Login:
         else:
             self.service.signup(email, password)
 
-# db = ChessDB(dbname="postgres", user="postgres", password="example", host="localhost", port=5432)
-service = ChessService()
+service = ChessService('http://localhost:5000')
 LWIN = Tk()
 from main import *
 Login(service, LWIN)

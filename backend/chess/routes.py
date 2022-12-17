@@ -1,10 +1,16 @@
-from flask import abort, request, session
-from . import app, auth, users, scores
+from flask import abort, jsonify, request, session
+from sqlalchemy.exc import IntegrityError
+from . import app, auth, db, password_hasher
+from chess.models import User, Score
+
+@app.route("/health", methods=['GET'])
+def health():
+    return 'ok'
 
 @auth.verify_password
 def verify_password(email, password):
-    user = users[email]
-    if user and password == user['password']:
+    user = db.session.query(User).where(User.email == email).one_or_none()
+    if user and password_hasher.verify(password, user.password):
         return user
     else:
         return False
@@ -14,23 +20,26 @@ def before_request():
     print("REQUEST...")
     print(request.method, request.endpoint, request.authorization)
 
+
 @app.route("/users", methods=['POST'])
 def create_user():
     email = request.json.get('email')
     password = request.json.get('password')
-    user = { 'email': email, 'password': password }
-    users[email] = user
-    return user
-
-@app.route("/users", methods=['GET'])
-def get_users():
-    return "HELLO"
+    user = User(email=email, password=password_hasher.hash(password))
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except IntegrityError:
+        print('User already exists...')
+    
+    return jsonify(user)
 
 @app.route("/user", methods=['GET'])
 @auth.login_required
 def get_user():
     user = auth.current_user()
-    return user['email']
+    # user.password = None
+    return jsonify(user)
 
 @app.route("/scores", methods=['POST'])
 @auth.login_required
@@ -38,25 +47,17 @@ def save_scores():
     score = request.json.get('score')
     level = request.json.get('level')
     user = auth.current_user()
-    email = user['email']
-    score_entry = { 'score': score, 'level': level }
-    user_scores = scores.get(email)
-    if user_scores: 
-        user_scores.append(score_entry)
-    else:
-        scores[email] = [score_entry]
+    score_entry = Score(user.email, score, level)
+    db.session.add(score_entry)
+    db.session.commit()
     
-    return score_entry
+    return jsonify(score_entry)
 
 @app.route("/scores/top", methods=['GET'])
 @auth.login_required
 def get_high_score():
     user = auth.current_user()
-    email = user['email']
-    user_scores = scores.get(email)
-    if user_scores:
-        slist = sorted(user_scores, key=lambda se: se['score'], reverse=True)
-        return slist[0]
-    else:
-        return None
+    score = db.session.query(Score).where(Score.user_email == user.email).order_by(Score.score.desc()).limit(1).one_or_none()
+
+    return jsonify(score)
 
