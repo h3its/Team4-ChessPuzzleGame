@@ -76,8 +76,8 @@ class Board:
        # img2 = font1.render('SPACE - Check', True, WHITE)
        # win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
 
-        if self.email:
-            user_line = 'Current User: ' + self.email
+        if self.service.basic_auth:
+            user_line = f"Current User: {self.service.basic_auth.username}"
         else:
             user_line = 'Not logged in'
 

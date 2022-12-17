@@ -9,6 +9,8 @@ def health():
 
 @auth.verify_password
 def verify_password(email, password):
+    print('VERIFY PASSWORD')
+    print(email, password)
     user = db.session.query(User).where(User.email == email).one_or_none()
     if user and password_hasher.verify(password, user.password):
         return user
@@ -60,4 +62,11 @@ def get_high_score():
     score = db.session.query(Score).where(Score.user_email == user.email).order_by(Score.score.desc()).limit(1).one_or_none()
 
     return jsonify(score)
+
+@app.route("/users/leaders", methods=['GET'])
+@auth.login_required
+def get_leaders():
+    leaders = db.session.query(Score).order_by(Score.score.desc()).limit(3).all()
+    
+    return jsonify(leaders)
 

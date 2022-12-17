@@ -103,10 +103,8 @@ def main(service):
             if event.type != pygame.KEYDOWN:
                 continue
 
-            if event.key == pygame.K_SPACE:
-                if game.check_solution():
-                    if email is not None:
-                        service.save_score(game.board.get_time(), current_game + 1)
+            if event.key == pygame.K_SPACE and game.check_solution():
+                service.save_score(game.board.get_time(), current_game + 1)
 
             if event.key == pygame.K_r:
                 game.reset()

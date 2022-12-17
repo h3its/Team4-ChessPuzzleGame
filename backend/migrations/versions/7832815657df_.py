@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e9d3f316f54e
+Revision ID: 7832815657df
 Revises: 
-Create Date: 2022-12-16 19:13:40.017355
+Create Date: 2022-12-16 21:23:39.612576
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e9d3f316f54e'
+revision = '7832815657df'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,10 +29,9 @@ def upgrade():
     sa.Column('user_email', sa.String(), nullable=False),
     sa.Column('score', sa.Integer(), nullable=False),
     sa.Column('level', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_email'], ['users.email'], ),
-    sa.PrimaryKeyConstraint('user_email'),
-    sa.UniqueConstraint('user_email')
+    sa.PrimaryKeyConstraint('user_email', 'created_at')
     )
     with op.batch_alter_table('scores', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_scores_created_at'), ['created_at'], unique=False)

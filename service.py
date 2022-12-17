@@ -33,7 +33,7 @@ class ChessService:
 
     def save_score(self, score, level):
         payload = {'score': score, 'level': level}
-        response = requests.post(self.base_url+'/users',json=payload, auth=self.basic_auth)
+        response = requests.post(self.base_url+'/scores',json=payload, auth=self.basic_auth)
 
         if response.status_code != 200:
             raise RuntimeError('Error Saving Score')
