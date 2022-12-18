@@ -17,7 +17,7 @@ class Board:
     """
     FPS = 60
 
-    def __init__(self, game_def, service, email, level):
+    def __init__(self, game_def, service, level):
         self.game_def = game_def
         self.ROWS = game_def['ROWS']
         self.COLS = game_def['COLS']
@@ -33,7 +33,6 @@ class Board:
         self.frame_count = 0
         self.font_size = 15 #size of timer and labels
         self.service = service
-        self.email = email
         self.level = level
 
     """
@@ -77,8 +76,8 @@ class Board:
        # img2 = font1.render('SPACE - Check', True, WHITE)
        # win.blit(img2, (0, self.game_def['HEIGHT'] + self.game_def['SHELF_SIZE']))
 
-        if self.email:
-            user_line = 'Current User: ' + self.email
+        if self.service.basic_auth:
+            user_line = f"Current User: {self.service.basic_auth.username}"
         else:
             user_line = 'Not logged in'
 

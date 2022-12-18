@@ -1,3 +1,5 @@
+import requests
+from requests.auth import HTTPBasicAuth
 
 class InvalidLoginException(Exception):
     pass
@@ -7,44 +9,46 @@ class UserNotFoundException(Exception):
 
 class ChessService:
 
-    def __init__(self, db):
-        self.db = db
+    def __init__(self, base_url):
+        self.base_url = base_url
+        self.basic_auth = None
 
     def signup(self, email, password):
-        self.db.add_user(email, password)
+        payload = {'email': email, 'password': password}
+        response = requests.post(self.base_url+'/users',json=payload)
 
-    def login(self, email, password):
-        user = self.db.get_user_by_email(email)
-        if not user or user['password'] != password:
-            raise InvalidLoginException
-
-    def save_score(self, email, score, level):
-        user = self.db.get_user_by_email(email)
-        old_score = None
-        if self.db.get_high_score(email, level):
-            old_score = self.db.get_high_score(email, level)['score']
-        print(old_score)
-        if user:
-            if not old_score:
-                self.db.save_score(email, score, level)
-            elif score < old_score:
-                self.db.update_score(email, score, level)
+        if response.status_code != 200:
+            raise RuntimeError('Unexpected Error')
         else:
-            raise UserNotFoundException
+            self.basic_auth = HTTPBasicAuth(email, password)
+        
+    def login(self, email, password):
+        ba = HTTPBasicAuth(email, password)
+        response = requests.get(self.base_url+'/user', auth=ba)
 
-    def get_high_score(self, email):
-        return self.db.get_high_score(email)
+        if response.status_code != 200:
+            raise InvalidLoginException
+        else: 
+            self.basic_auth = ba
 
-    def get_users(self):
-        raw_users = self.db.list_users()
-        users = []
-        for i in range(len(raw_users)):
-            users.append(dict(raw_users[i])['email'])
-        return users
+    def save_score(self, score, level):
+        payload = {'score': score, 'level': level}
+        response = requests.post(self.base_url+'/scores',json=payload, auth=self.basic_auth)
+
+        if response.status_code != 200:
+            raise RuntimeError('Error Saving Score')
+
+    def get_high_score(self):
+        response = requests.get(self.base_url+'/scores/top', auth=self.basic_auth)
+
+        if response.status_code != 200:
+            raise RuntimeError('Error Getting Score')
+        else:
+            return response.json()
 
     def get_leaders(self, level):
-        leaders = self.db.list_leaders(level)
-        return leaders
-
+     #   leaders = self.db.list_leaders(level)
+      #  return leaders
+        return []
 
 

@@ -62,7 +62,7 @@ def initialize_game(game_num):
     return WIN
 
 
-def main(service, email):
+def main(service):
     # Create a Database instance (ChessDB)
     # Create a ChessService(db)
     # Pass the service to whoever needs it
@@ -76,7 +76,7 @@ def main(service, email):
     # passing in first game definiton into game objectOD
     # TODO: pass chess esrvice into Game
 
-    game = Game(WIN, game_definition, service, email, current_game+1)
+    game = Game(WIN, game_definition, service, current_game+1)
 
     while run:
         clock.tick(FPS)
@@ -103,10 +103,8 @@ def main(service, email):
             if event.type != pygame.KEYDOWN:
                 continue
 
-            if event.key == pygame.K_SPACE:
-                if game.check_solution():
-                    if email is not None:
-                        service.save_score(email, game.board.get_time(), current_game + 1)
+            if event.key == pygame.K_SPACE and game.check_solution():
+                service.save_score(game.board.get_time(), current_game + 1)
 
             if event.key == pygame.K_r:
                 game.reset()
@@ -116,7 +114,7 @@ def main(service, email):
                     current_game = current_game + 1
                     try:
                         WIN = initialize_game(current_game)
-                        game = Game(WIN, game_definition, service, email, current_game+1)
+                        game = Game(WIN, game_definition, service, current_game+1)
                     except IndexError:
                         game.finish()
 
