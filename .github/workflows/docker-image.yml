@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags: [ "v*.*.*" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: "${{ github.ref_name }}"
+        
+    - name: Login to Github GHCR
+      uses: docker/login-action@v1
+      with: 
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: extract metadata
+      uses: docker/metadata-action@v4
+      with:
+        images: ghcr.io/h3its/chess
+
+    - name: Build the Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: backend
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+  
