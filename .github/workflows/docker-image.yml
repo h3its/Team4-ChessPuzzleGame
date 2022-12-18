@@ -27,6 +27,7 @@ jobs:
         
     - name: extract metadata
       uses: docker/metadata-action@v4
+      id: meta
       with:
         images: ghcr.io/h3its/chess
 
