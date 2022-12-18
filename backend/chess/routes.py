@@ -40,7 +40,7 @@ def create_user():
 @auth.login_required
 def get_user():
     user = auth.current_user()
-    # user.password = None
+    user.password = None
     return jsonify(user)
 
 @app.route("/scores", methods=['POST'])
