@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import pygame
-from db import ChessDB
 from service import InvalidLoginException, UserNotFoundException, ChessService
 
 
@@ -291,7 +290,9 @@ class Login:
         else:
             self.service.signup(email, password)
 
-service = ChessService('http://localhost:5000')
+import sys
+base_url = sys.argv[1]
+service = ChessService(base_url)
 LWIN = Tk()
 from main import *
 Login(service, LWIN)
