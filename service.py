@@ -47,8 +47,11 @@ class ChessService:
             return response.json()
 
     def get_leaders(self, level):
-     #   leaders = self.db.list_leaders(level)
-      #  return leaders
-        return []
+        response = requests.get(f"{self.base_url}/users/leaders?level={level}")
+
+        if response.status_code != 200:
+            raise RuntimeError('Error Getting Score')
+        else:
+            return response.json()
 
 

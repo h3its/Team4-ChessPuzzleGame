@@ -25,7 +25,7 @@ def test_leaders(client, sample_user):
     auth = auth_header(sample_user.email, 'password')
     score = { 'score': 100, 'level': 50 }
     client.post('/scores', headers=auth, json=score)
-    resp = client.get('/users/leaders', headers=auth)
+    resp = client.get('/users/leaders?level=50', headers=auth)
     print(resp.json)
     assert resp.status_code == 200
 

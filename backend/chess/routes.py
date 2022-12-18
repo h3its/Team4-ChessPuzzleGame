@@ -64,9 +64,12 @@ def get_high_score():
     return jsonify(score)
 
 @app.route("/users/leaders", methods=['GET'])
-@auth.login_required
 def get_leaders():
-    leaders = db.session.query(Score).order_by(Score.score.desc()).limit(3).all()
+    level = request.args.get('level')
+    if not level:
+        return abort(400)
+    else:
+        leaders = db.session.query(Score).where(Score.level == level).order_by(Score.score.desc()).limit(3).all()
     
-    return jsonify(leaders)
+        return jsonify(leaders)
 
