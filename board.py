@@ -34,6 +34,7 @@ class Board:
         self.font_size = 15 #size of timer and labels
         self.service = service
         self.level = level
+        self.refresh_count = -1
 
     """
     draw squares on board
@@ -266,7 +267,11 @@ class Board:
         return self.hours * 3600 + self.minutes * 60 + self.seconds
 
     def draw_leaderboard(self, win):
-        leaders = self.service.get_leaders(self.level)
+        self.refresh_count += 1
+        
+        if self.refresh_count % 300 == 0:
+            print("Getting leaders...")
+            self.leaders = self.service.get_leaders(self.level)
 
         first_name = ''
         first_score = ''
@@ -275,16 +280,17 @@ class Board:
         third_name = ''
         third_score = ''
 
-        if leaders:
-            if len(leaders) >= 1:
-                first_name = leaders[0][0]
-                first_score = str(leaders[0][1]) + ' sec'
-            if len(leaders) >= 2:
-                second_name = leaders[1][0]
-                second_score = str(leaders[1][1]) + ' sec'
-            if len(leaders) == 3:
-                third_name = leaders[2][0]
-                third_score = str(leaders[2][1]) + ' sec'
+        if self.leaders:
+            #print(self.leaders[0])
+            if len(self.leaders) >= 1:                
+                first_name = self.leaders[0]['user_email']
+                first_score = str(self.leaders[0]['score']) + ' sec'
+            if len(self.leaders) >= 2:
+                second_name = self.leaders[1]['user_email']
+                second_score = str(self.leaders[1]['score']) + ' sec'
+            if len(self.leaders) == 3:
+                third_name = self.leaders[2]['user_email']
+                third_score = str(self.leaders[2]['score']) + ' sec'
 
         pygame.font.init()
         font = pygame.font.SysFont('comicsans', self.font_size)
