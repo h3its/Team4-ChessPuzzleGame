@@ -1,9 +1,17 @@
 from tkinter import *
 from tkinter import messagebox
+root = Tk()
 from PIL import ImageTk, Image
 import pygame
 from service import InvalidLoginException, UserNotFoundException, ChessService
+from main import *
 
+import os
+import sys
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dec and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__))) + "/assets"
+    return os.path.join(base_path, relative_path)
 
 class Login:
 
@@ -35,7 +43,7 @@ class Login:
                                  bg='#779556', fg='white', font=('comic sans', 25, 'bold'))
         self.title_label.place(x=72, y=45)
         # Adds queen images on left side of the Title label
-        self.queen_image1 = Image.open('assets/queen.png')
+        self.queen_image1 = Image.open(resource_path('queen.png'))
         resize_queen = self.queen_image1.resize((64, 64))
         queen_photo = ImageTk.PhotoImage(resize_queen)
         self.left_image_label = Label(
@@ -71,7 +79,7 @@ class Login:
 
         # SHOW AND HIDE PASSWORD #
         # Sets the "Hide Password" image and labels for the "Show" function
-        self.show_image = Image.open('assets/Hide.png')
+        self.show_image = Image.open(resource_path('Hide.png'))
         self.show_photo = ImageTk.PhotoImage(self.show_image)
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=self.show)
@@ -85,11 +93,11 @@ class Login:
         self.login_label2.place(x=360, y=255)
 
         # "Show Password" image
-        self.hide_image = Image.open('assets/Show.png')
+        self.hide_image = Image.open(resource_path('Show.png'))
         self.hide_photo = ImageTk.PhotoImage(self.hide_image)
 
         # Sets an image for the login button and sets placement
-        self.button_image = Image.open('assets/LoginButtonImage.png')
+        self.button_image = Image.open(resource_path('LoginButtonImage.png'))
         button_photo = ImageTk.PhotoImage(self.button_image)
         self.login_button_label = Label(
             self.login_window, image=button_photo, bg='black')
@@ -152,8 +160,8 @@ class Login:
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=LWIN.withdraw())
         """Opens the game"""
-        main(self.service)
-        LWIN.quit()
+        main_app(self.service)
+        self.LWIN.quit()
 
     # Allows user to create a new password
 
@@ -194,7 +202,7 @@ class Login:
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
         self.confirm_entry.place(x=200, y=280, width=200)
         # Sets Submit button image
-        self.submit1_image = Image.open('assets/LoginButtonImage.png')
+        self.submit1_image = Image.open(resource_path('LoginButtonImage.png'))
         submit1_photo = ImageTk.PhotoImage(self.submit1_image)
         self.submit1_button_label = Label(
             self.forget_window, image=submit1_photo, bg='black')
@@ -227,23 +235,23 @@ class Login:
         self.email_label = Label(
             self.create_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
         self.email_label.place(x=143, y=160)
-        self.email_entry = Entry(self.create_window, highlightthickness=0,
+        self.create_email_entry = Entry(self.create_window, highlightthickness=0,
                                  relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.email_entry.place(x=200, y=160, width=200)
+        self.create_email_entry.place(x=200, y=160, width=200)
         # Creates the email label and entry field
         self.username_label = Label(
             self.create_window, text='Username', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
         self.username_label.place(x=107, y=200)
-        self.username_entry = Entry(self.create_window, highlightthickness=0,
+        self.create_username_entry = Entry(self.create_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.username_entry.place(x=200, y=200, width=200)
+        self.create_username_entry.place(x=200, y=200, width=200)
         # Creates the new password label and entry field
         self.password_label = Label(
             self.create_window, text='New Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
         self.password_label.place(x=68, y=240)
-        self.password_entry = Entry(self.create_window, highlightthickness=0,
+        self.create_password_entry = Entry(self.create_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.password_entry.place(x=200, y=240, width=200)
+        self.create_password_entry.place(x=200, y=240, width=200)
         # Creates the confirm password label and entry field
         self.confirm_label = Label(
             self.create_window, text='Confirm Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
@@ -252,7 +260,7 @@ class Login:
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
         self.confirm_entry.place(x=200, y=280, width=200)
         # Sets Submit button image
-        self.submit2_image = Image.open('assets/LoginButtonImage.png')
+        self.submit2_image = Image.open(resource_path('LoginButtonImage.png'))
         submit2_photo = ImageTk.PhotoImage(self.submit2_image)
         self.submit2_button_label = Label(
             self.create_window, image=submit2_photo, bg='black')
@@ -274,26 +282,31 @@ class Login:
             password = self.password_entry.get()
             self.service.login(email, password)
             print("LOGIN SUCCESSFUL!!!")
-            main(self.service)
-            LWIN.quit()
+            main_app(self.service)
+            self.LWIN.quit()
         except InvalidLoginException:
             messagebox.showerror('Login Failed', 'Login failed!')
             print("LOGIN FAILED!!!")
 
     def create_account_submit(self):
-        email = self.email_entry.get()
-        password = self.password_entry.get()
+        email = self.create_email_entry.get()
+        password = self.create_password_entry.get()
         password2 = self.confirm_entry.get()
 
         if password != password2:
             messagebox.showerror('Error', 'Passwords do not match!')
         else:
             self.service.signup(email, password)
+            self.create_window.destroy()
 
-import sys
-base_url = sys.argv[1]
-service = ChessService(base_url)
-LWIN = Tk()
-from main import *
-Login(service, LWIN)
-LWIN.mainloop()
+def run():
+    import sys
+    base_url = sys.argv[1]
+    service = ChessService(base_url)
+    LWIN = root
+    #from main import *
+    Login(service, LWIN)
+    LWIN.mainloop()
+
+if __name__ == '__main__':
+    run()
