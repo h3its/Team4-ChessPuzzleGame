@@ -19,8 +19,8 @@ def verify_password(email, password):
 
 @app.before_request
 def before_request():
-    print("REQUEST...")
-    print(request.method, request.endpoint, request.authorization)
+    if "health" not in request.endpoint:
+        print(request.method, request.endpoint, request.authorization)
 
 
 @app.route("/users", methods=['POST'])
