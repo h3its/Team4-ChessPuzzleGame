@@ -301,7 +301,11 @@ class Login:
 
 def run():
     import sys
-    base_url = sys.argv[1]
+    if len(sys.argv) > 1:
+        base_url = sys.argv[1]
+    else:
+        base_url = "http://chesslb-970359745.us-east-1.elb.amazonaws.com:5000"
+        
     service = ChessService(base_url)
     LWIN = root
     #from main import *
