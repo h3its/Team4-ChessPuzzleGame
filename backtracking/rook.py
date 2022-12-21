@@ -2,7 +2,7 @@
 Represents a chess Rook
 """
 
-from piece import Piece
+from frontend.chess.piece import Piece
 
 class Rook(Piece):
 
