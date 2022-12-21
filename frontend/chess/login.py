@@ -112,7 +112,7 @@ class Login:
         # Creates a sign up password link
         self.create_button = Button(self.login_window, text='Create Account', font=(
             'comic sans', 8, 'bold italic underline'), fg='grey', width=15, bd=0, bg='black', activebackground='black', cursor='hand2', command=self.create_account)
-        self.create_button.place(x=110, y=355)
+        self.create_button.place(x=180, y=355)
 
         # Creates a skip link
         self.skip_button = Button(self.login_window, text='Skip for Now', font=(

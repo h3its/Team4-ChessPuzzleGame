@@ -32,11 +32,12 @@ class ChessService:
             self.basic_auth = ba
 
     def save_score(self, score, level):
-        payload = {'score': score, 'level': level}
-        response = requests.post(self.base_url+'/scores',json=payload, auth=self.basic_auth)
+        if self.basic_auth:
+            payload = {'score': score, 'level': level}
+            response = requests.post(self.base_url+'/scores',json=payload, auth=self.basic_auth)
 
-        if response.status_code != 200:
-            raise RuntimeError('Error Saving Score')
+            if response.status_code != 200:
+                raise RuntimeError('Error Saving Score')
 
     def get_high_score(self):
         response = requests.get(self.base_url+'/scores/top', auth=self.basic_auth)
