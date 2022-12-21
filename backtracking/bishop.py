@@ -2,7 +2,7 @@
 Represents a chess Bishop
 """
 
-from piece import Piece
+from frontend.chess.piece import Piece
 
 class Bishop(Piece):
 

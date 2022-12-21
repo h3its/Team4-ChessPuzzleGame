@@ -59,7 +59,7 @@ def save_scores():
 @auth.login_required
 def get_high_score():
     user = auth.current_user()
-    score = db.session.query(Score).where(Score.user_email == user.email).order_by(Score.score.desc()).limit(1).one_or_none()
+    score = db.session.query(Score).where(Score.user_email == user.email).order_by(Score.score.asc()).limit(1).one_or_none()
 
     return jsonify(score)
 
@@ -69,7 +69,7 @@ def get_leaders():
     if not level:
         return abort(400)
     else:
-        leaders = db.session.query(Score).where(Score.level == level).order_by(Score.score.desc()).limit(3).all()
+        leaders = db.session.query(Score).where(Score.level == level).order_by(Score.score.asc()).limit(3).all()
     
         return jsonify(leaders)
 

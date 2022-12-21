@@ -1,6 +1,6 @@
-from queen import Queen
-from rook import Rook
-from bishop import Bishop
+from frontend.chess.queen import Queen
+from frontend.chess.rook import Rook
+from frontend.chess.bishop import Bishop
 
 
 # Currently, MUST ROWS == COLS

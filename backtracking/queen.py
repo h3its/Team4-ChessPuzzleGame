@@ -2,7 +2,7 @@
 Represents a chess Queen
 """
 
-from piece import Piece
+from frontend.chess.piece import Piece
 
 class Queen(Piece):
 
