@@ -3,8 +3,8 @@ from tkinter import messagebox
 root = Tk()
 from PIL import ImageTk, Image
 import pygame
-from chess.service import InvalidLoginException, UserNotFoundException, ChessService
-from chess.main import *
+from service import InvalidLoginException, UserNotFoundException, ChessService
+from main import *
 
 import os
 import sys

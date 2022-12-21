@@ -3,8 +3,8 @@ Handles game processes including updating the game and moving pieces
 """
 
 import pygame
-from chess.board import Board
-from chess.constants import *
+from board import Board
+from constants import *
 
 
 class Game:

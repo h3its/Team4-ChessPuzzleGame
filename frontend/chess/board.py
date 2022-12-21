@@ -3,11 +3,11 @@ Draws the board and the "shelf" which is where the pieces will be placed initial
 """
 
 import pygame
-from chess.constants import *
-from chess.piece import Piece
-from chess.queen import Queen
-from chess.rook import Rook
-from chess.bishop import Bishop
+from constants import *
+from piece import Piece
+from queen import Queen
+from rook import Rook
+from bishop import Bishop
 
 
 class Board:

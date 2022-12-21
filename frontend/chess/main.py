@@ -3,8 +3,8 @@ Runs the game and handles user input
 """
 
 import pygame
-from chess.constants import *
-from chess.game import Game
+from constants import *
+from game import Game
 import json
 
 FPS = 60
