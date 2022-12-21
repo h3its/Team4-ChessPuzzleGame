@@ -109,7 +109,10 @@ def main_app(service):
                 continue
 
             if event.key == pygame.K_SPACE and game.check_solution():
-                service.save_score(game.board.get_time(), current_game + 1)
+                try:
+                    service.save_score(game.board.get_time(), current_game + 1)
+                except RuntimeError: # user is not logged in
+                    pass
 
             if event.key == pygame.K_r:
                 game.reset()
