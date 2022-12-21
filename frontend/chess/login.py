@@ -109,11 +109,6 @@ class Login:
             'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white', command=self.login_submit)
         self.login_button.place(x=12, y=10)
 
-        # Creates a forgot password link
-        self.forgot_button = Button(self.login_window, text='Forgot Password?', font=(
-            'comic sans', 8, 'bold italic underline'), fg='grey', width=15, bd=0, bg='black', activebackground='black', cursor='hand2', command=self.forget_password)
-        self.forgot_button.place(x=240, y=355)
-
         # Creates a sign up password link
         self.create_button = Button(self.login_window, text='Create Account', font=(
             'comic sans', 8, 'bold italic underline'), fg='grey', width=15, bd=0, bg='black', activebackground='black', cursor='hand2', command=self.create_account)
@@ -238,34 +233,28 @@ class Login:
         self.create_email_entry = Entry(self.create_window, highlightthickness=0,
                                  relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
         self.create_email_entry.place(x=200, y=160, width=200)
-        # Creates the email label and entry field
-        self.username_label = Label(
-            self.create_window, text='Username', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.username_label.place(x=107, y=200)
-        self.create_username_entry = Entry(self.create_window, highlightthickness=0,
-                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.create_username_entry.place(x=200, y=200, width=200)
+        
         # Creates the new password label and entry field
         self.password_label = Label(
             self.create_window, text='New Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.password_label.place(x=68, y=240)
+        self.password_label.place(x=68, y=200)
         self.create_password_entry = Entry(self.create_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.create_password_entry.place(x=200, y=240, width=200)
+        self.create_password_entry.place(x=200, y=200, width=200)
         # Creates the confirm password label and entry field
         self.confirm_label = Label(
             self.create_window, text='Confirm Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
-        self.confirm_label.place(x=40, y=280)
+        self.confirm_label.place(x=40, y=240)
         self.confirm_entry = Entry(self.create_window, highlightthickness=0,
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.confirm_entry.place(x=200, y=280, width=200)
+        self.confirm_entry.place(x=200, y=240, width=200)
         # Sets Submit button image
         self.submit2_image = Image.open(resource_path('LoginButtonImage.png'))
         submit2_photo = ImageTk.PhotoImage(self.submit2_image)
         self.submit2_button_label = Label(
             self.create_window, image=submit2_photo, bg='black')
         self.submit2_button_label.image = submit2_photo
-        self.submit2_button_label.place(x=115, y=330)
+        self.submit2_button_label.place(x=115, y=290)
         # Creates a submit button and sets placement
         self.submit2_button = Button(self.submit2_button_label, text='SUBMIT', font=(
             'comic sans', 13, 'bold'), width=20, bd=0, bg='#779556', cursor='hand2', activebackground='#779556', fg='white',
